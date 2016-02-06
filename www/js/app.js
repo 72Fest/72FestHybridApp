@@ -34,11 +34,11 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         controller: 'AppCtrl'
     })
 
-    .state('app.search', {
-        url: '/search',
+    .state('app.photos', {
+        url: '/photos',
         views: {
             'menuContent': {
-                templateUrl: 'templates/search.html'
+                templateUrl: 'templates/photos.html'
             }
         }
     })
