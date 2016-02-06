@@ -71,4 +71,14 @@ angular.module('starter.controllers', [])
   ];
 })
 
-.controller('PlaylistCtrl', function ($scope, $stateParams) {});
+.controller('PlaylistCtrl', function ($scope, $stateParams) {})
+
+.controller('PhotosCtrl', function ($scope, photos) {
+    photos.
+        then(function (results) {
+            console.log('results:', results);
+            $scope.photos = results;
+        }, function (err) {
+            console.log('err:', err);
+        });
+});

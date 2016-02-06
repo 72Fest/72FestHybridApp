@@ -1,5 +1,6 @@
 <ion-view view-title="Photos">
     <ion-content>
         <h1>Photos</h1>
+        <img ng-repeat="photo in photos.data" src="{{photos.url}}/{{photo.thumbUrl}}" width="120" alt=""></img>
     </ion-content>
 </ion-view>

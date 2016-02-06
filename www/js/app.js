@@ -1,3 +1,4 @@
+
 /*jslint browser: true*/
 /*global angular, cordova */
 // Ionic Starter App
@@ -6,7 +7,11 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers'])
+angular.module('starter', [
+    'ionic',
+    'starter.controllers',
+    'services.photos'
+])
 
 .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
@@ -38,7 +43,8 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         url: '/photos',
         views: {
             'menuContent': {
-                templateUrl: 'templates/photos.html'
+                templateUrl: 'templates/photos.html',
+                controller: 'PhotosCtrl'
             }
         }
     })
