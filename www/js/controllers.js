@@ -74,10 +74,20 @@ angular.module('starter.controllers', [])
 .controller('PlaylistCtrl', function ($scope, $stateParams) {})
 
 .controller('PhotosCtrl', function ($scope, photos) {
+    $scope.items = [];
+
     photos.
         then(function (results) {
             console.log('results:', results);
             $scope.photos = results;
+            $scope.items = results.data.map(function (val) {
+                return {
+                    src: results.url + '/' + val.photoUrl,
+                    thumb: results.url + '/' + val.thumbUrl
+                };
+            });
+            console.log('$scope.items:', $scope.items);
+
         }, function (err) {
             console.log('err:', err);
         });
