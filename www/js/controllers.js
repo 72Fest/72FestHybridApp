@@ -76,8 +76,8 @@ angular.module('starter.controllers', [])
 .controller('PhotosCtrl', function ($scope, photos) {
     $scope.items = [];
 
-    photos.
-        then(function (results) {
+    photos.getPhotos()
+        .then(function (results) {
             console.log('results:', results);
             $scope.photos = results;
             $scope.items = results.data.map(function (val) {
