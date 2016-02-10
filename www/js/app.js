@@ -58,25 +58,25 @@ angular.module('starter', [
                 }
             }
         })
-        .state('app.playlists', {
-            url: '/playlists',
+        .state('app.teams', {
+            url: '/teams',
             views: {
                 'menuContent': {
-                    templateUrl: 'templates/playlists.html',
-                    controller: 'PlaylistsCtrl'
+                    templateUrl: 'templates/teams.html',
+                    controller: 'TeamsCtrl'
                 }
             }
         })
 
     .state('app.single', {
-        url: '/playlists/:playlistId',
+        url: '/teams/:playlistId',
         views: {
             'menuContent': {
-                templateUrl: 'templates/playlist.html',
+                templateUrl: 'templates/team.html',
                 controller: 'PlaylistCtrl'
             }
         }
     });
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/app/playlists');
+    $urlRouterProvider.otherwise('/app/teams');
 });

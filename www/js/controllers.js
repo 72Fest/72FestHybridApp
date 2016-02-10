@@ -42,7 +42,7 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('PlaylistsCtrl', function ($scope) {
+.controller('TeamsCtrl', function ($scope) {
     $scope.playlists = [
         {
             title: 'Reggae',
