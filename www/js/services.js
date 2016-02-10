@@ -11,15 +11,20 @@ photos.factory('photos', function ($http, $q) {
             .then(function (response) {
                 var isSuccess = response.data.isSuccess,
                     baseUrl,
-                    photoData;
+                    photoData,
+                    results;
 
                 if (isSuccess) {
                     baseUrl = response.data.message.metadata.baseUrl;
                     photoData = response.data.message.photos;
-                    deferred.resolve({
-                        url: baseUrl,
-                        data: photoData
+                    results = photoData.map(function (val) {
+                        return {
+                            src: baseUrl + '/' + val.photoUrl,
+                            thumb: baseUrl + '/' + val.thumbUrl
+                        };
                     });
+
+                    deferred.resolve(results);
                 } else {
                     deferred.reject('Error in request');
                 }

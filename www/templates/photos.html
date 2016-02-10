@@ -1,7 +1,7 @@
 <ion-view view-title="Photos">
     <ion-content>
         <h1>Photos</h1>
-        <ion-gallery ion-gallery-items="items" ion-gallery-row="4"></ion-gallery>
-<!--        <img ng-repeat="photo in photos.data" src="{{photos.url}}/{{photo.thumbUrl}}" width="120" alt=""></img>-->
+<!--        <ion-gallery ion-gallery-items="photos" ion-gallery-row="4"></ion-gallery>-->
+        <img ng-repeat="photo in photos" ng-src="{{photo.thumb}}" width="120" alt=""></img>
     </ion-content>
 </ion-view>
