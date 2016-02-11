@@ -11,7 +11,8 @@ angular.module('starter', [
     'ionic',
     'ion-gallery',
     'starter.controllers',
-    'services.photos'
+    'services.photos',
+    'services.teams'
 ])
 
 .run(function ($ionicPlatform) {
@@ -69,11 +70,11 @@ angular.module('starter', [
         })
 
     .state('app.single', {
-        url: '/teams/:playlistId',
+        url: '/teams/:id',
         views: {
             'menuContent': {
                 templateUrl: 'templates/team.html',
-                controller: 'PlaylistCtrl'
+                controller: 'TeamCtrl'
             }
         }
     });

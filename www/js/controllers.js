@@ -42,36 +42,21 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('TeamsCtrl', function ($scope) {
-    $scope.playlists = [
-        {
-            title: 'Reggae',
-            id: 1
-        },
-        {
-            title: 'Chill',
-            id: 2
-        },
-        {
-            title: 'Dubstep',
-            id: 3
-        },
-        {
-            title: 'Indie',
-            id: 4
-        },
-        {
-            title: 'Rap',
-            id: 5
-        },
-        {
-            title: 'Cowbell',
-            id: 6
-        }
-  ];
+.controller('TeamsCtrl', function ($scope, teams) {
+    $scope.teams = [];
+
+    teams.getTeams()
+        .then(function (results) {
+            $scope.teams = results;
+        }, function (err) {
+            console.log('err:', err);
+        });
 })
 
-.controller('PlaylistCtrl', function ($scope, $stateParams) {})
+.controller('TeamCtrl', function ($scope, $stateParams) {
+    console.log('$stateParams:', $stateParams);
+    $scope.id = $stateParams.id;
+})
 
 .controller('PhotosCtrl', function ($scope, photos) {
     $scope.photos = [];

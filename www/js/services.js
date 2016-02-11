@@ -1,9 +1,8 @@
 /*global angular */
-var photos = angular.module('services.photos', []),
-    baseEndpoint = 'http://api.phoshow.me:3000/api';
+var baseEndpoint = 'http://api.phoshow.me:3000/api';
 
-
-photos.factory('photos', function ($http, $q) {
+angular.module('services.photos', [])
+.factory('photos', function ($http, $q) {
     var deferred = $q.defer();
 
     function getPhotos() {
@@ -37,5 +36,29 @@ photos.factory('photos', function ($http, $q) {
 
     return {
         getPhotos: getPhotos
+    };
+});
+
+angular.module('services.teams', [])
+.factory('teams', function ($http, $q) {
+    var deferred = $q.defer();
+
+    function getTeams() {
+        $http.jsonp(baseEndpoint + '/teams?callback=JSON_CALLBACK')
+            .then(function (response) {
+                if (response.data.isSuccess) {
+                    deferred.resolve(response.data.message);
+                } else {
+                    deferred.reject('Error in request');
+                }
+            }, function (err) {
+                deferred.reject(err);
+            });
+
+        return deferred.promise;
+    }
+
+    return {
+        getTeams: getTeams
     };
 });
