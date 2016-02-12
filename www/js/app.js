@@ -31,10 +31,10 @@ angular.module('starter', [
     });
 })
 
-.config(function ($stateProvider, $urlRouterProvider) {
+.config(function ($stateProvider, $urlRouterProvider, $sceDelegateProvider) {
     $stateProvider
 
-        .state('app', {
+    .state('app', {
         url: '/app',
         abstract: true,
         templateUrl: 'templates/menu.html',
@@ -80,4 +80,12 @@ angular.module('starter', [
     });
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/teams');
+
+    // whitelist certain URLs to be accessed within the app
+    $sceDelegateProvider.resourceUrlWhitelist([
+        'self',
+        'https://*.youtube.com/**',
+        'http://*.youtube.com/**',
+        'http://*.vimeo.com/**'
+    ]);
 });

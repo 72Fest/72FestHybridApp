@@ -53,9 +53,17 @@ angular.module('starter.controllers', [])
         });
 })
 
-.controller('TeamCtrl', function ($scope, $stateParams) {
+.controller('TeamCtrl', function ($scope, $stateParams, teams) {
     console.log('$stateParams:', $stateParams);
-    $scope.id = $stateParams.id;
+    $scope.team = {};
+
+    teams.getTeam($stateParams.id)
+        .then(function (results) {
+            $scope.team = results;
+            console.dir(results);
+        }, function (err) {
+            console.log('err:', err);
+        });
 })
 
 .controller('PhotosCtrl', function ($scope, photos) {

@@ -1,5 +1,25 @@
 <ion-view view-title="Team Information">
     <ion-content>
-        <h1>TODO: {{id}}</h1>
+        <!-- team info and logo -->
+        <div class="card">
+            <div class="item item-divider" ng-bind="team.teamName"></div>
+            <div class="item item-body">
+                <img class="full-image" ng-src="{{team.logo}}" alt="">
+                <p ng-bind="team.bio"></p>
+            </div>
+        </div>
+
+        <!-- list out films -->
+        <div class="card list" ng-repeat="vid in team.films" >
+            <div class="item item-avatar item-icon-left">
+                <i class="icon ion-videocamera"></i>
+                <h2 ng-bind="vid.title"></h2>
+                <p>{{vid.year}} film fest entry</p>
+            </div>
+            <div class="item item-text-wrap">
+                <iframe width="480" height="390" src="{{vid.url}}" frameborder="0" allowfullscreen></iframe>
+
+            </div>
+        </div>
     </ion-content>
 </ion-view>

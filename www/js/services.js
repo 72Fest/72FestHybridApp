@@ -41,9 +41,9 @@ angular.module('services.photos', [])
 
 angular.module('services.teams', [])
 .factory('teams', function ($http, $q) {
-    var deferred = $q.defer();
 
     function getTeams() {
+        var deferred = $q.defer();
         $http.jsonp(baseEndpoint + '/teams?callback=JSON_CALLBACK')
             .then(function (response) {
                 if (response.data.isSuccess) {
@@ -58,7 +58,25 @@ angular.module('services.teams', [])
         return deferred.promise;
     }
 
+    function getTeam(teamId) {
+        var deferred = $q.defer();
+        $http.jsonp(baseEndpoint + '/teams/' +
+                    teamId + '?callback=JSON_CALLBACK')
+            .then(function (response) {
+                if (response.data.isSuccess) {
+                    deferred.resolve(response.data.message);
+                } else {
+                    deferred.reject('Error in request');
+                }
+            }, function (err) {
+                deferred.reject(err);
+            });
+
+        return deferred.promise;
+    }
+
     return {
+        getTeam: getTeam,
         getTeams: getTeams
     };
 });
