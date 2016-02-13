@@ -51,11 +51,11 @@ angular.module('starter', [
         }
     })
 
-    .state('app.browse', {
-            url: '/browse',
+    .state('app.home', {
+            url: '/home',
             views: {
                 'menuContent': {
-                    templateUrl: 'templates/browse.html'
+                    templateUrl: 'templates/home.html'
                 }
             }
         })
