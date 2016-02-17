@@ -76,4 +76,8 @@ angular.module('starter.controllers', [])
         }, function (err) {
             console.log('err:', err);
         });
+})
+
+.controller('CreditsCtrl', function ($scope) {
+
 });

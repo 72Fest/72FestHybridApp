@@ -77,6 +77,16 @@ angular.module('starter', [
                 controller: 'TeamCtrl'
             }
         }
+    })
+
+    .state('app.credits', {
+        url: '/credits',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/credits.html',
+                controller: 'CreditsCtrl'
+            }
+        }
     });
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/teams');
