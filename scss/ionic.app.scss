@@ -30,3 +30,6 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 .side-menu-item {
     font-size: 24px;
 }
+
+// Include additional sass
+@import "scss/countdown"

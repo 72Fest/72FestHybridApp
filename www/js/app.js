@@ -12,7 +12,8 @@ angular.module('starter', [
     'ion-gallery',
     'starter.controllers',
     'services.photos',
-    'services.teams'
+    'services.teams',
+    'ff.countdown'
 ])
 
 .run(function ($ionicPlatform) {
