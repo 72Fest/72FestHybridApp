@@ -1,7 +1,7 @@
 /*global angular, console */
 (function () {
-    angular.module('ff.countdown', [])
-    .directive('ffCountdown', function () {
+    angular.module('ff.countdown', ['services.countdown'])
+    .directive('ffCountdown', function (countdown) {
         return {
             restrict: 'AE',
             templateUrl: 'templates/countdown.html',
@@ -13,6 +13,13 @@
                     minute: "--",
                     second: "--"
                 };
+
+                countdown.getCountdown()
+                    .then(function (result) {
+                        scope.remainingTime = result.time;
+                    }, function (err) {
+                        console.error('Major fail when trying to retrieve countdown:' + err);
+                    });
             }
         };
     });

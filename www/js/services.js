@@ -80,3 +80,26 @@ angular.module('services.teams', [])
         getTeams: getTeams
     };
 });
+
+angular.module('services.countdown', [])
+.factory('countdown', function ($http, $q) {
+    function getCountdown() {
+        var deferred = $q.defer();
+        $http.jsonp(baseEndpoint + '/countdown?callback=JSON_CALLBACK')
+            .then(function (response) {
+                if (response.data.isSuccess) {
+                    deferred.resolve(response.data.message);
+                } else {
+                    deferred.reject('Error in request');
+                }
+            }, function (err) {
+                deferred.reject(err);
+            });
+
+        return deferred.promise;
+    };
+
+    return {
+        getCountdown: getCountdown
+    };
+});
