@@ -88,7 +88,10 @@ angular.module('services.countdown', [])
         $http.jsonp(baseEndpoint + '/countdown?callback=JSON_CALLBACK')
             .then(function (response) {
                 if (response.data.isSuccess) {
-                    deferred.resolve(response.data.message);
+                    var dummyMessage = {"isSuccess":true,"message":{"caption":"72 Film Fest","time":{"year":2016,"month":10,"day":10,"hour":19,"minute":0,"second":0}}};
+
+                    deferred.resolve(dummyMessage.message);
+                    //deferred.resolve(response.data.message);
                 } else {
                     deferred.reject('Error in request');
                 }
