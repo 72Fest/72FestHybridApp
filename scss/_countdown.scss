@@ -1,10 +1,10 @@
 //definitions
 $countdownBgClr: #61BAA2;
 $countdownBorderClr: #61BAA2;
-$countdownLabelClr: #FFF;
+$countdownLabelClr: #000;
 $countdownFont: sans-serif;
 //$countdownFont: 'archiveregular', sans-serif;
-$countdownBaseFontSize: 32px;
+$countdownBaseFontSize: 18px;
 
 //@font-face {
 //    font-family: 'archiveregular';
@@ -27,13 +27,13 @@ $countdownBaseFontSize: 32px;
     text-shadow: none;
     font-family: $countdownFont;
     font-size: $countdownBaseFontSize;
-    background-color: black;
+    //background-color: black;
 }
 
 #countdown-container {
-    background: $countdownBgClr;
+    //background: $countdownBgClr;
     border:solid;
-    border-color: $countdownBorderClr;
+    //border-color: $countdownBorderClr;
 }
 
 #countdown-label {
