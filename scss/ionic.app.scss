@@ -21,15 +21,3 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
-//Team styles
-.team-logo {
-    width: 320px;
-    display: inline-block;
-}
-
-.side-menu-item {
-    font-size: 24px;
-}
-
-// Include additional sass
-@import "scss/countdown"
