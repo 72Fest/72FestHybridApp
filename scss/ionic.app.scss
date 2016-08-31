@@ -15,10 +15,41 @@ $royal:                           #886aea !default;
 $dark:                            #444 !default;
 */
 
+//color constants
+$base-bg-clr: #d9d9d9;
+$headline-font: 'Bowlby One SC', cursive;
+
+//ionic overrides
+$stable: #121212;
+$headings-font-family: 'Yeseva One', cursive;
+$button-stable-text: #fff;
+$menu-bg: #ccc;
+
+//
+// Component styles
+.bar {
+  font-family: $headings-font-family;
+}
+
+// menu styles
+.logo-container {
+  padding: 5px 10px;
+  text-align: center;
+  .main-logo {
+    width: 100%;
+  }
+  .sub-logo {
+    width: 35%
+  }
+}
+
+
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
+
+// Include additional custom sass
 @import "./countdown";
 
