@@ -90,7 +90,7 @@ angular.module('starter', [
         }
     });
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/app/teams');
+    $urlRouterProvider.otherwise('/app/home');
 
     // whitelist certain URLs to be accessed within the app
     $sceDelegateProvider.resourceUrlWhitelist([
