@@ -2,6 +2,6 @@
     <ion-content>
         <h1>Photos</h1>
 <!--        <ion-gallery ion-gallery-items="photos" ion-gallery-row="4"></ion-gallery>-->
-        <img ng-repeat="photo in photos" ng-src="{{photo.thumb}}" width="120" alt=""></img>
+        <img collection-repeat="photo in photos" item-width="120px" item-height="120px" ng-src="{{photo.thumb}}" alt=""></img>
     </ion-content>
 </ion-view>
