@@ -1,7 +1,7 @@
 //definitions
-$countdownBgClr: $stable;
-$countdownBorderClr: #61BAA2;
-$countdownLabelClr: #e0e0e0;
+$countdownBgClr: $primary-clr;
+$countdownBorderClr: darken($primary-clr, 5%);
+$countdownLabelClr: #fff;
 $countdownFont: $headline-font;
 //$countdownFont: 'archiveregular', sans-serif;
 $countdownBaseFontSize: 18px;
@@ -37,7 +37,7 @@ $countdownBaseFontSize: 18px;
 
 #countdown-container {
     //background: $countdownBgClr;
-    border:solid;
+    border: 1px solid $countdownBorderClr;
     //border-color: $countdownBorderClr;
 }
 

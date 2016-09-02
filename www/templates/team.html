@@ -2,7 +2,9 @@
     <ion-content>
         <!-- team info and logo -->
         <div class="card">
-            <div class="item item-divider" ng-bind="team.teamName"></div>
+            <div class="item item-divider">
+              <h2 ng-bind="team.teamName"></h2>
+            </div>
             <div class="item item-body">
                 <img class="full-image" ng-src="{{team.logo}}" alt="">
                 <p ng-bind="team.bio"></p>
@@ -11,7 +13,7 @@
 
         <!-- list out films -->
         <div class="card list" ng-repeat="vid in team.films" >
-            <div class="item item-avatar item-icon-left">
+            <div class="item item-avatar item-icon-left item-divider">
                 <i class="icon ion-videocamera"></i>
                 <h2 ng-bind="vid.title"></h2>
                 <p>{{vid.year}} film fest entry</p>

@@ -15,20 +15,50 @@ $royal:                           #886aea !default;
 $dark:                            #444 !default;
 */
 
+@import "fonts";
+@import 'https://fonts.googleapis.com/css?family=Bevan|Graduate|Bowlby+One+SC';
+
 //color constants
-$base-bg-clr: #d9d9d9;
-$headline-font: 'Bowlby One SC', cursive;
+$primary-clr: #bfa284;
+$base-bg-clr: #f0f0f0;
+$header-clr: #fff;
+$sub-header-clr: darken($header-clr, 5%);
+$list-header-clr: #292929;
+$headline-font: 'Bevan', sans-serif;
+//$headline-font: 'Graduate', sans-serif;
 
 //ionic overrides
-$stable: #121212;
-$headings-font-family: 'Yeseva One', cursive;
-$button-stable-text: #fff;
-$menu-bg: #ccc;
+$stable: #fff;
+$font-family-base: 'Titillium Web', sans-serif;
+$headings-font-family: $headline-font;
+$button-stable-text: $primary-clr;
+$base-background-color: $base-bg-clr;
+$menu-bg: darken($primary-clr, 30%);
+$item-divider-bg: $primary-clr;
+$item-divider-color: $header-clr;
 
 //
 // Component styles
+.item.item-divider {
+  h2 {
+    color: $header-clr;
+  }
+
+  p {
+    color: $sub-header-clr !important;
+  }
+}
+
+.item-content h2 {
+  color: $list-header-clr;
+}
 .bar {
   font-family: $headings-font-family;
+}
+
+.side-menu-item span {
+  font-family: $headings-font-family;
+  color: $list-header-clr;
 }
 
 // menu styles
