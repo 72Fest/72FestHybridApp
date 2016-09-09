@@ -73,6 +73,22 @@ $item-divider-color: $header-clr;
   }
 }
 
+//make the icons in the photo footer larger
+.bar .button.icon:before {
+    font-size: 35px !important;
+}
+.menu {
+  background-image: url('../img/menuBG.png');
+}
+.menu-icon {
+  font-size: 28px;
+}
+.menu-text {
+  font-size: 20px;
+}
+.side-menu-item span {
+  color: darken($primary-clr, 40%);
+}
 
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
