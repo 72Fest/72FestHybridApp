@@ -67,6 +67,48 @@ angular.module('starter.controllers', [])
 })
 
 .controller('PhotosCtrl', function ($scope, photos, $cordovaCamera) {
+    var options = {
+        quality: 80,
+        allowEdit: false,
+        saveToPhotoAlbum: true,
+        correctOrientation:true
+    };
+
+    $scope.takePhotoFromCamera = function () {
+        document.addEventListener('deviceready', function () {
+            //set source type to retrieve photo from camera
+            options.sourceType = Camera.PictureSourceType.CAMERA;
+            options.destinationType = Camera.DestinationType.FILE_URI;
+
+            var image = document.getElementById('myImage');
+            $cordovaCamera.getPicture(options).then(function(imageURI) {
+                var image = document.getElementById('myImage');
+                image.src = imageURI;
+                document.getElementById('txt').innerHTML = imageURI;
+            }, function(err) {
+              // error
+                document.getElementById('txt').innerHTML = err;
+            });
+        }, false);
+    };
+
+    $scope.takePhotoFromAlbum = function () {
+        document.addEventListener('deviceready', function () {
+            //set source type to pull from photo library
+            options.sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
+            options.destinationType = Camera.DestinationType.FILE_URI;
+
+            var image = document.getElementById('myImage');
+            $cordovaCamera.getPicture(options).then(function(imageURI) {
+                var image = document.getElementById('myImage');
+                image.src = imageURI;
+                document.getElementById('txt').innerHTML = imageURI;
+            }, function(err) {
+              // error
+                document.getElementById('txt').innerHTML = err;
+            });
+        }, false);
+    };
     $scope.photos = [];
     $scope.columns = 4;
 
@@ -78,14 +120,6 @@ angular.module('starter.controllers', [])
         });
 
     document.addEventListener('deviceready', function () {
-        var options = {
-            quality: 80,
-            destinationType: Camera.DestinationType.FILE_URI,
-            sourceType: Camera.PictureSourceType.CAMERA,
-            allowEdit: false,
-            saveToPhotoAlbum: true,
-            correctOrientation:true
-        };
         var image = document.getElementById('myImage');
         $cordovaCamera.getPicture(options).then(function(imageURI) {
           var image = document.getElementById('myImage');
