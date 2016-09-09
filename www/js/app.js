@@ -33,7 +33,7 @@ angular.module('starter', [
     });
 })
 
-.config(function ($stateProvider, $urlRouterProvider, $sceDelegateProvider) {
+.config(function ($stateProvider, $urlRouterProvider, $sceDelegateProvider, $ionicConfigProvider) {
     $stateProvider
 
     .state('app', {
@@ -100,4 +100,7 @@ angular.module('starter', [
         'http://*.youtube.com/**',
         'http://*.vimeo.com/**'
     ]);
+
+    //disable showing the last title's text for the nav back button
+    $ionicConfigProvider.backButton.previousTitleText(false);
 });
