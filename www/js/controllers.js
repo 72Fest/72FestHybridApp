@@ -82,9 +82,7 @@ angular.module('starter.controllers', [])
             quality: 80,
             destinationType: Camera.DestinationType.FILE_URI,
             sourceType: Camera.PictureSourceType.CAMERA,
-            allowEdit: true,
-            targetWidth: 100,
-            targetHeight: 100,
+            allowEdit: false,
             saveToPhotoAlbum: true,
             correctOrientation:true
         };
@@ -95,6 +93,7 @@ angular.module('starter.controllers', [])
         document.getElementById('txt').innerHTML = imageURI;
         }, function(err) {
           // error
+            document.getElementById('txt').innerHTML = err;
         });
 
         $cordovaCamera.cleanup();
