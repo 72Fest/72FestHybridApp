@@ -85,13 +85,14 @@ angular.module('services.countdown', [])
 .factory('countdown', function ($http, $q) {
     function getCountdown() {
         var deferred = $q.defer();
-        $http.jsonp(baseEndpoint + '/countdown?callback=JSON_CALLBACK')
+        $http.jsonp(baseEndpoint + '/countDown?callback=JSON_CALLBACK')
             .then(function (response) {
                 if (response.data.isSuccess) {
-                    var dummyMessage = {"isSuccess":true,"message":{"caption":"72 Film Fest","time":{"year":2016,"month":10,"day":10,"hour":19,"minute":0,"second":0}}};
+                    console.dir(response.data.message);
+                    //var dummyMessage = {"isSuccess":true,"message":{"caption":"72 Film Fest","time":{"year":2016,"month":10,"day":10,"hour":19,"minute":0,"second":0}}};
 
-                    deferred.resolve(dummyMessage.message);
-                    //deferred.resolve(response.data.message);
+                    //deferred.resolve(dummyMessage.message);
+                    deferred.resolve(response.data.message);
                 } else {
                     deferred.reject('Error in request');
                 }
