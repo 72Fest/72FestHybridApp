@@ -66,7 +66,7 @@ angular.module('starter.controllers', [])
         });
 })
 
-.controller('PhotosCtrl', function ($scope, photos) {
+.controller('PhotosCtrl', function ($scope, photos, $cordovaCamera) {
     $scope.photos = [];
     $scope.columns = 4;
 
@@ -76,6 +76,30 @@ angular.module('starter.controllers', [])
         }, function (err) {
             console.log('err:', err);
         });
+
+    document.addEventListener('deviceready', function () {
+        var options = {
+            quality: 80,
+            destinationType: Camera.DestinationType.FILE_URI,
+            sourceType: Camera.PictureSourceType.CAMERA,
+            allowEdit: true,
+            targetWidth: 100,
+            targetHeight: 100,
+            saveToPhotoAlbum: true,
+            correctOrientation:true
+        };
+        var image = document.getElementById('myImage');
+        $cordovaCamera.getPicture(options).then(function(imageURI) {
+          var image = document.getElementById('myImage');
+          image.src = imageURI;
+        document.getElementById('txt').innerHTML = imageURI;
+        }, function(err) {
+          // error
+        });
+
+        $cordovaCamera.cleanup();
+
+    }, false);
 })
 
 .controller('CreditsCtrl', function ($scope) {
