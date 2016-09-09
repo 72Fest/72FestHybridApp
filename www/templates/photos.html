@@ -1,8 +1,5 @@
 <ion-view view-title="Photos">
     <ion-content>
-        <img id="myImage">
-        <div id="txt"></div>
-        <h1>Photos</h1>
 <!--        <ion-gallery ion-gallery-items="photos" ion-gallery-row="4"></ion-gallery>-->
         <img collection-repeat="photo in photos" item-width="120px" item-height="120px" ng-src="{{photo.thumb}}" alt=""></img>
     </ion-content>

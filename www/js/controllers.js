@@ -74,50 +74,55 @@ angular.module('starter.controllers', [])
         correctOrientation:true
     };
 
-    $scope.takePhotoFromCamera = function () {
+    function getPhotos() {
+        photos.getPhotos()
+            .then(function (results) {
+                $scope.photos = results;
+            }, function (err) {
+                console.log('err:', err);
+            });
+    }
+
+    function capturePhoto(isUsingCamera) {
         document.addEventListener('deviceready', function () {
+            options.destinationType = Camera.DestinationType.FILE_URI;
             //set source type to retrieve photo from camera
-            options.sourceType = Camera.PictureSourceType.CAMERA;
-            options.destinationType = Camera.DestinationType.FILE_URI;
+            options.sourceType =
+                isUsingCamera ? Camera.PictureSourceType.CAMERA :
+                    Camera.PictureSourceType.PHOTOLIBRARY;
 
-            var image = document.getElementById('myImage');
             $cordovaCamera.getPicture(options).then(function(imageURI) {
-                var image = document.getElementById('myImage');
-                image.src = imageURI;
-                document.getElementById('txt').innerHTML = imageURI;
+                photos.uploadPhoto(imageURI)
+                    .then(function (result) {
+                        console.log(result);
+                        getPhotos();
+                    }, function (err) {
+                        //TODO: report any errors
+                        console.error(err);
+                    }, function (progress) {
+                        var percentage = (progress.loaded/progress.total) * 100;
+                        //TODO: update progress bar
+                        console.log('percentage:' + percentage);
+                    });
             }, function(err) {
               // error
-                document.getElementById('txt').innerHTML = err;
             });
         }, false);
-    };
+    }
 
-    $scope.takePhotoFromAlbum = function () {
-        document.addEventListener('deviceready', function () {
-            //set source type to pull from photo library
-            options.sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
-            options.destinationType = Camera.DestinationType.FILE_URI;
-
-            var image = document.getElementById('myImage');
-            $cordovaCamera.getPicture(options).then(function(imageURI) {
-                var image = document.getElementById('myImage');
-                image.src = imageURI;
-                document.getElementById('txt').innerHTML = imageURI;
-            }, function(err) {
-              // error
-                document.getElementById('txt').innerHTML = err;
-            });
-        }, false);
-    };
     $scope.photos = [];
     $scope.columns = 4;
 
-    photos.getPhotos()
-        .then(function (results) {
-            $scope.photos = results;
-        }, function (err) {
-            console.log('err:', err);
-        });
+    $scope.takePhotoFromCamera = function () {
+        capturePhoto(true);
+    };
+
+    $scope.takePhotoFromAlbum = function () {
+        capturePhoto(false);
+    };
+
+    //load in photos
+    getPhotos();
 })
 
 .controller('CreditsCtrl', function ($scope) {
