@@ -118,21 +118,6 @@ angular.module('starter.controllers', [])
         }, function (err) {
             console.log('err:', err);
         });
-
-    document.addEventListener('deviceready', function () {
-        var image = document.getElementById('myImage');
-        $cordovaCamera.getPicture(options).then(function(imageURI) {
-          var image = document.getElementById('myImage');
-          image.src = imageURI;
-        document.getElementById('txt').innerHTML = imageURI;
-        }, function(err) {
-          // error
-            document.getElementById('txt').innerHTML = err;
-        });
-
-        $cordovaCamera.cleanup();
-
-    }, false);
 })
 
 .controller('CreditsCtrl', function ($scope) {
