@@ -1,5 +1,7 @@
 #72Fest Hybrid App
 
+[![Stories in Ready](https://badge.waffle.io/72Fest/72FestHybridApp.svg?label=ready&title=Ready)](http://waffle.io/72Fest/72FestHybridApp)
+
 ## Installation
 
 ```bash
