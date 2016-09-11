@@ -74,11 +74,33 @@ angular.module('starter.controllers', [])
         correctOrientation:true
     };
 
+    var cachedPhotos = [];
+    var photoLimit = 20;
+    var photoLimitIdx = 0;
+
+    function hasMorePhotos() {
+        var startIdx = photoLimit * photoLimitIdx;
+        return (startIdx <= cachedPhotos.length - 1) ? true : false;
+    }
+
+    function getNextPhotos() {
+        if (hasMorePhotos()) {
+            var startIdx = photoLimit * photoLimitIdx,
+                vals = cachedPhotos.slice(startIdx, startIdx + photoLimit);
+
+            $scope.photos = $scope.photos.concat(vals);
+            photoLimitIdx += 1;
+            $scope.$broadcast('scroll.infiniteScrollComplete');
+        }
+    }
+
     function getPhotos() {
         return photos.getPhotos()
             .then(function (results) {
-                $scope.photos = results;
-                return results;
+                //photoLimitIdx = 0;
+                console.log('************CALLING**********');
+                cachedPhotos = results;
+                return cachedPhotos.slice(0);
             }, function (err) {
                 console.log('err:', err);
                 return err;
@@ -131,8 +153,14 @@ angular.module('starter.controllers', [])
             });
     }
 
+    $scope.getNextPhotos = getNextPhotos;
+    $scope.hasMorePhotos = hasMorePhotos;
+
     //load in photos
-    getPhotos();
+    getPhotos()
+        .then(function (results) {
+            getNextPhotos();
+        });
 })
 
 .controller('CreditsCtrl', function ($scope) {

@@ -5,7 +5,13 @@
             on-refresh="refreshPhotos()">
         </ion-refresher>
 <!--        <ion-gallery ion-gallery-items="photos" ion-gallery-row="4"></ion-gallery>-->
-        <img collection-repeat="photo in photos" item-width="120px" item-height="120px" ng-src="{{photo.thumb}}" alt=""></img>
+<!--        <img collection-repeat="photo in photos" item-width="120px" item-height="120px" ng-src="{{photo.thumb}}" alt=""></img>-->
+        <img ng-repeat="photo in photos" width="120" item-height="120" ng-src="{{photo.thumb}}" alt=""></img>
+
+        <ion-infinite-scroll
+            ng-if="hasMorePhotos()"
+            on-infinite="getNextPhotos()">
+        </ion-infinite-scroll>
     </ion-content>
 
     <div class="bar bar-footer bar-stable">
