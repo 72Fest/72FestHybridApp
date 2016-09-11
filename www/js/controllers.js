@@ -75,11 +75,13 @@ angular.module('starter.controllers', [])
     };
 
     function getPhotos() {
-        photos.getPhotos()
+        return photos.getPhotos()
             .then(function (results) {
                 $scope.photos = results;
+                return results;
             }, function (err) {
                 console.log('err:', err);
+                return err;
             });
     }
 
@@ -120,6 +122,14 @@ angular.module('starter.controllers', [])
     $scope.takePhotoFromAlbum = function () {
         capturePhoto(false);
     };
+
+    $scope.refreshPhotos = function () {
+        getPhotos()
+            .finally(function () {
+                // Stop the ion-refresher from spinning
+                $scope.$broadcast('scroll.refreshComplete');
+            });
+    }
 
     //load in photos
     getPhotos();

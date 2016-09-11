@@ -1,5 +1,9 @@
 <ion-view view-title="<img class='view-title-image' src='img/72HeaderImage.svg'>">
     <ion-content>
+        <ion-refresher
+            pulling-text="Pull to refresh photos ..."
+            on-refresh="refreshPhotos()">
+        </ion-refresher>
 <!--        <ion-gallery ion-gallery-items="photos" ion-gallery-row="4"></ion-gallery>-->
         <img collection-repeat="photo in photos" item-width="120px" item-height="120px" ng-src="{{photo.thumb}}" alt=""></img>
     </ion-content>
