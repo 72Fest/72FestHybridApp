@@ -75,7 +75,7 @@ angular.module('starter.controllers', [])
     };
 
     var cachedPhotos = [];
-    var photoLimit = 20;
+    var photoLimit = 5;
     var photoLimitIdx = 0;
 
     function hasMorePhotos() {
