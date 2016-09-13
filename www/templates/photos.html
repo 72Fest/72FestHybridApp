@@ -7,8 +7,17 @@
 <!--        <ion-gallery ion-gallery-items="photos" ion-gallery-row="4"></ion-gallery>-->
 <!--        <img collection-repeat="photo in photos" item-width="120px" item-height="120px" ng-src="{{photo.thumb}}" alt=""></img>-->'
 
-        <div ng-repeat="photo in photos" width="100%" ng-src="{{photo.thumb}}" alt="">
-            <img width="100%" ng-src="{{photo.thumb}}" alt=""></img>
+        <div class="photo-element-container" ng-repeat="photo in photos" alt="">
+            <div class="photo-element-header">
+                <span>4 Hours ago</span>
+            </div>
+            <img class="photo-element-img" ng-src="{{photo.thumb}}" alt=""></img>
+            <hr class="photo-element-divider">
+            <div class="photo-element-text-container">
+                <span class="photo-element-vote-icon-container"><i class="icon ion-thumbsup"></i></span>
+                <span>X Votes</span>
+                <i class="photo-element-share icon ion-share"></i>
+            </div>
         </div>
 
         <ion-infinite-scroll
