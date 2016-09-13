@@ -7,5 +7,10 @@
   },
   "dependencies": {
     "ngCordova": "~0.1.27-alpha"
+  },
+  "resolutions": {
+    "angular": "1.5.3",
+    "angular-sanitize": "1.5.3",
+    "angular-animate": "1.5.3"
   }
 }
