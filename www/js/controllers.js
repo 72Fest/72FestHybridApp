@@ -66,7 +66,7 @@ angular.module('starter.controllers', [])
         });
 })
 
-.controller('PhotosCtrl', function ($scope, photos, $cordovaCamera) {
+.controller('PhotosCtrl', function ($scope, photos, $cordovaCamera, $cordovaSocialSharing) {
     var options = {
         quality: 80,
         allowEdit: false,
@@ -133,6 +133,20 @@ angular.module('starter.controllers', [])
         }, false);
     }
 
+    function sharePhoto(photoPath) {
+        var message = "#72Fest",
+            subject = "Photo shared from 72Fest",
+            file = photoPath;
+
+        $cordovaSocialSharing
+            .share(message, subject, file) // Share via native share sheet
+            .then(function(result) {
+                // Success!
+            }, function(err) {
+                // An error occured. Show a message to the user
+            });
+    }
+
     $scope.photos = [];
     $scope.columns = 4;
 
@@ -158,6 +172,7 @@ angular.module('starter.controllers', [])
             });
     };
 
+    $scope.sharePhoto = sharePhoto;
     $scope.getNextPhotos = getNextPhotos;
     $scope.hasMorePhotos = hasMorePhotos;
 
