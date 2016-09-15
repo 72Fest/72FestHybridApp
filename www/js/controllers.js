@@ -1,4 +1,4 @@
-/*global angular, console */
+/*global angular, console, Camera, document */
 angular.module('starter.controllers', [])
 
 .controller('AppCtrl', function ($scope, $ionicModal, $timeout) {
@@ -97,8 +97,6 @@ angular.module('starter.controllers', [])
     function getPhotos() {
         return photos.getPhotos()
             .then(function (results) {
-                //photoLimitIdx = 0;
-                console.log('************CALLING**********');
                 cachedPhotos = results;
                 return cachedPhotos.slice(0);
             }, function (err) {
@@ -119,7 +117,7 @@ angular.module('starter.controllers', [])
                 photos.uploadPhoto(imageURI)
                     .then(function (result) {
                         console.log(result);
-                        getPhotos();
+                        $scope.refreshPhotos();
                     }, function (err) {
                         //TODO: report any errors
                         console.error(err);
@@ -147,11 +145,17 @@ angular.module('starter.controllers', [])
 
     $scope.refreshPhotos = function () {
         getPhotos()
+            .then(function () {
+                //reset the photo index and grab latest photos
+                photoLimitIdx = 0;
+                $scope.photos = [];
+                getNextPhotos();
+            })
             .finally(function () {
                 // Stop the ion-refresher from spinning
                 $scope.$broadcast('scroll.refreshComplete');
             });
-    }
+    };
 
     $scope.getNextPhotos = getNextPhotos;
     $scope.hasMorePhotos = hasMorePhotos;
