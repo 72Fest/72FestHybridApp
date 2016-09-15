@@ -1,4 +1,4 @@
-/*global angular, console */
+/*global angular, console, Camera, document */
 angular.module('starter.controllers', [])
 
 .controller('AppCtrl', function ($scope, $ionicModal, $timeout) {
@@ -74,11 +74,31 @@ angular.module('starter.controllers', [])
         correctOrientation:true
     };
 
+    var cachedPhotos = [];
+    var photoLimit = 5;
+    var photoLimitIdx = 0;
+
+    function hasMorePhotos() {
+        var startIdx = photoLimit * photoLimitIdx;
+        return (startIdx <= cachedPhotos.length - 1) ? true : false;
+    }
+
+    function getNextPhotos() {
+        if (hasMorePhotos()) {
+            var startIdx = photoLimit * photoLimitIdx,
+                vals = cachedPhotos.slice(startIdx, startIdx + photoLimit);
+
+            $scope.photos = $scope.photos.concat(vals);
+            photoLimitIdx += 1;
+            $scope.$broadcast('scroll.infiniteScrollComplete');
+        }
+    }
+
     function getPhotos() {
         return photos.getPhotos()
             .then(function (results) {
-                $scope.photos = results;
-                return results;
+                cachedPhotos = results;
+                return cachedPhotos.slice(0);
             }, function (err) {
                 console.log('err:', err);
                 return err;
@@ -97,7 +117,7 @@ angular.module('starter.controllers', [])
                 photos.uploadPhoto(imageURI)
                     .then(function (result) {
                         console.log(result);
-                        getPhotos();
+                        $scope.refreshPhotos();
                     }, function (err) {
                         //TODO: report any errors
                         console.error(err);
@@ -125,14 +145,26 @@ angular.module('starter.controllers', [])
 
     $scope.refreshPhotos = function () {
         getPhotos()
+            .then(function () {
+                //reset the photo index and grab latest photos
+                photoLimitIdx = 0;
+                $scope.photos = [];
+                getNextPhotos();
+            })
             .finally(function () {
                 // Stop the ion-refresher from spinning
                 $scope.$broadcast('scroll.refreshComplete');
             });
-    }
+    };
+
+    $scope.getNextPhotos = getNextPhotos;
+    $scope.hasMorePhotos = hasMorePhotos;
 
     //load in photos
-    getPhotos();
+    getPhotos()
+        .then(function (results) {
+            getNextPhotos();
+        });
 })
 
 .controller('CreditsCtrl', function ($scope) {

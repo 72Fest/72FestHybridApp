@@ -96,6 +96,55 @@ $item-divider-color: $header-clr;
     height: 25px;
 }
 
+$photo-element-text-size: 16px;
+$photo-element-border-clr: #ccc;
+.photo-element-container {
+    width: 100%;
+    margin-bottom: 20px;
+    position: relative;
+
+    .photo-element-header {
+        position: relative;
+        border-top: 1px solid $photo-element-border-clr;
+        border-bottom: 1px solid $photo-element-border-clr;
+        width: 100%p;
+        padding: 10px 10px;
+        background-color: #fff;
+        font-size: 18px;
+    }
+
+    .photo-element-img {
+        width: 100%;
+        height: auto;
+    }
+
+    .photo-element-divider {
+        color: #1f1f1f;
+        width: 95%;
+    }
+
+    .photo-element-text-container {
+        font-size: $photo-element-text-size;
+        position: relative;
+        margin: 2px 30px;
+        color: darken($primary-clr, 20%);;
+
+        .photo-element-vote-icon-container {
+            margin-right: 20px;
+            font-size: $photo-element-text-size + 15px;
+        }
+
+        .photo-element-share {
+            font-size: $photo-element-text-size + 20px;
+        }
+
+    }
+
+    .photo-element-share {
+        float: right;
+        font-size: $photo-element-text-size + 5px;
+    }
+}
 
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
