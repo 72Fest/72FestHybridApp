@@ -66,7 +66,7 @@ angular.module('starter.controllers', [])
         });
 })
 
-.controller('PhotosCtrl', function ($scope, photos, $cordovaCamera, $cordovaSocialSharing) {
+.controller('PhotosCtrl', function ($scope, $timeout, photos, $cordovaCamera, $cordovaSocialSharing, $ionicLoading) {
     var options = {
         quality: 80,
         allowEdit: false,
@@ -117,16 +117,34 @@ angular.module('starter.controllers', [])
             $cordovaCamera.getPicture(options).then(function(imageURI) {
                 photos.uploadPhoto(imageURI)
                     .then(function (result) {
-                        console.log(result);
                         $scope.refreshPhotos();
+                        $ionicLoading.hide().then(function(){
+                            console.log("The loading indicator is now hidden");
+                        });
                     }, function (err) {
-                        //TODO: report any errors
-                        console.error(err);
+                        console.error("Failed to upload photo!");
+                        alert(err);
+                        $ionicLoading.hide().then(function(){
+                            console.log("The loading indicator is now hidden");
+                        });
                     }, function (progress) {
                         var percentage = (progress.loaded/progress.total) * 100;
+
+                        $timeout(function () {
+                            $scope.uploadProgress = Math.round(percentage);
+                        });
+
                         //TODO: update progress bar
                         console.log('percentage:' + percentage);
                     });
+
+                $ionicLoading.show({
+                    template: 'Uploading photo ...<br><ion-spinner ng-hide="uploadProgress === 100"></ion-spinner><br>{{uploadProgress}}%',
+                    scope: $scope
+                }).then(function(){
+                    console.log("The loading indicator is now displayed");
+                });
+
             }, function(err) {
               // error
             });
@@ -172,6 +190,7 @@ angular.module('starter.controllers', [])
             });
     };
 
+    $scope.uploadProgress = 0;
     $scope.sharePhoto = sharePhoto;
     $scope.getNextPhotos = getNextPhotos;
     $scope.hasMorePhotos = hasMorePhotos;
