@@ -108,6 +108,7 @@ angular.module('starter.controllers', [])
     function capturePhoto(isUsingCamera) {
         document.addEventListener('deviceready', function () {
             options.destinationType = Camera.DestinationType.FILE_URI;
+            options.saveToPhotoAlbum = isUsingCamera;
             //set source type to retrieve photo from camera
             options.sourceType =
                 isUsingCamera ? Camera.PictureSourceType.CAMERA :
