@@ -10,7 +10,6 @@
 angular.module('starter', [
     'ionic',
     'ngCordova',
-    'ion-gallery',
     'starter.controllers',
     'services.photos',
     'services.teams',
