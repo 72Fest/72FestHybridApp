@@ -1,4 +1,4 @@
-/*global angular, console, Camera, document */
+/*global angular, console, Camera, moment, document */
 angular.module('starter.controllers', [])
 
 .controller('AppCtrl', function ($scope, $ionicModal, $timeout) {
@@ -78,6 +78,11 @@ angular.module('starter.controllers', [])
     var photoLimit = 5;
     var photoLimitIdx = 0;
 
+    function processTimestamp(tsStr) {
+        var ts = moment(tsStr);
+        return ts.fromNow();
+    }
+
     function hasMorePhotos() {
         var startIdx = photoLimit * photoLimitIdx;
         return (startIdx <= cachedPhotos.length - 1) ? true : false;
@@ -86,9 +91,13 @@ angular.module('starter.controllers', [])
     function getNextPhotos() {
         if (hasMorePhotos()) {
             var startIdx = photoLimit * photoLimitIdx,
-                vals = cachedPhotos.slice(startIdx, startIdx + photoLimit);
+                vals = cachedPhotos.slice(startIdx, startIdx + photoLimit),
+                genTimestamp = function (obj) {
+                    obj.timeStr = processTimestamp(obj.timestamp);
+                    return obj;
+                };
 
-            $scope.photos = $scope.photos.concat(vals);
+            $scope.photos = $scope.photos.concat(vals.map(genTimestamp));
             photoLimitIdx += 1;
             $scope.$broadcast('scroll.infiniteScrollComplete');
         }

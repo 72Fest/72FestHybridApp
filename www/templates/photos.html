@@ -7,7 +7,7 @@
 
         <div class="photo-element-container" ng-repeat="photo in photos" alt="">
             <div class="photo-element-header">
-                <span>X Hours ago</span>
+                <span class="photo-element-timestamp" ng-bind="photo.timeStr"></span>
             </div>
             <img class="photo-element-img" ng-src="{{photo.thumb}}" alt=""></img>
             <hr class="photo-element-divider">

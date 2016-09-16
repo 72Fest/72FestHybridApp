@@ -19,7 +19,8 @@ angular.module('services.photos', [])
                     results = photoData.map(function (val) {
                         return {
                             src: baseUrl + '/' + val.photoUrl,
-                            thumb: baseUrl + '/' + val.thumbUrl
+                            thumb: baseUrl + '/' + val.thumbUrl,
+                            timestamp: val.timestamp
                         };
                     });
 

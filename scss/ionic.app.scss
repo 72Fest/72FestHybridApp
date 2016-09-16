@@ -96,6 +96,7 @@ $item-divider-color: $header-clr;
     height: 25px;
 }
 
+$photo-element-text-clr: darken($primary-clr, 20%);
 $photo-element-text-size: 16px;
 $photo-element-border-clr: #ccc;
 .photo-element-container {
@@ -113,6 +114,11 @@ $photo-element-border-clr: #ccc;
         font-size: 18px;
     }
 
+    .photo-element-timestamp {
+        font-weight: bold;
+        color: $photo-element-text-clr;
+    }
+
     .photo-element-img {
         width: 100%;
         height: auto;
@@ -127,7 +133,7 @@ $photo-element-border-clr: #ccc;
         font-size: $photo-element-text-size;
         position: relative;
         margin: 2px 30px;
-        color: darken($primary-clr, 20%);;
+        color: $photo-element-text-clr;
 
         .photo-element-vote-icon-container {
             margin-right: 20px;
