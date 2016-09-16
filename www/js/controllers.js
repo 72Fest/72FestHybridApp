@@ -97,7 +97,7 @@ angular.module('starter.controllers', [])
                     return obj;
                 };
 
-            $scope.photos = $scope.photos.concat(vals.map(genTimestamp));
+            $scope.photos = $scope.photos.concat(vals).map(genTimestamp);
             photoLimitIdx += 1;
             $scope.$broadcast('scroll.infiniteScrollComplete');
         }
