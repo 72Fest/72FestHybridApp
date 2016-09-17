@@ -13,7 +13,7 @@ angular.module('starter', [
     'starter.controllers',
     'services.photos',
     'services.teams',
-    'services.sponsors',
+    'services.constants',
     'ff.countdown'
 ])
 
@@ -88,6 +88,16 @@ angular.module('starter', [
             'menuContent': {
                 templateUrl: 'templates/credits.html',
                 controller: 'CreditsCtrl'
+            }
+        }
+    })
+
+    .state('app.contact', {
+        url: '/contact',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/contact.html',
+                controller: 'ContactCtrl'
             }
         }
     });

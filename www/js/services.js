@@ -135,9 +135,10 @@ angular.module('services.countdown', [])
     };
 });
 
-angular.module('services.sponsors', [])
-.factory('sponsors', function ($http, $q) {
+angular.module('services.constants', [])
+.factory('constants', function ($http, $q) {
     return {
-        sponsorsUrl: topLevelUrl + '/sponsors.html'
+        sponsorsUrl: topLevelUrl + '/sponsors.html',
+        contactUrl: 'http://www.72fest.com/about/contact/ '
     };
 });
