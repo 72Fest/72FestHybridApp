@@ -48,6 +48,7 @@ $countdownBaseFontSize: 18px;
     text-shadow: none;
     font-family: $countdownFont;
     font-size: 32px;
+    line-height: 32px;
     padding: 10px 5px;
 }
 
@@ -55,6 +56,7 @@ $countdownBaseFontSize: 18px;
 .counter-container {
     display:inline-block;
     margin-right: 10px;
+    min-width: 50px;
 }
 .countdown-counter-label {
     font-size: 14px;
