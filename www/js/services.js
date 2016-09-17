@@ -67,8 +67,13 @@ angular.module('services.teams', [])
         var deferred = $q.defer();
         $http.jsonp(baseEndpoint + '/teams?callback=JSON_CALLBACK')
             .then(function (response) {
+                var results = response.data.message;
                 if (response.data.isSuccess) {
-                    deferred.resolve(response.data.message);
+                    //add reference to thumbnail
+                    deferred.resolve(results.map(function (curVal) {
+                        curVal.logo_thumb = curVal.logo.replace(/\.([a-z]{3})$/, '-thumb.$1');
+                        return curVal;
+                    }));
                 } else {
                     deferred.reject('Error in request');
                 }
