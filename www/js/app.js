@@ -13,6 +13,7 @@ angular.module('starter', [
     'starter.controllers',
     'services.photos',
     'services.teams',
+    'services.sponsors',
     'ff.countdown'
 ])
 
@@ -96,6 +97,7 @@ angular.module('starter', [
     // whitelist certain URLs to be accessed within the app
     $sceDelegateProvider.resourceUrlWhitelist([
         'self',
+        'http://api.phoshow.me:3000/**',
         'https://*.youtube.com/**',
         'http://*.youtube.com/**',
         'http://*.vimeo.com/**'

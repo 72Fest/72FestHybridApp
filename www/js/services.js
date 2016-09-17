@@ -1,5 +1,6 @@
 /*global angular */
-var baseEndpoint = 'http://api.phoshow.me:3000/api';
+var topLevelUrl =  'http://api.phoshow.me:3000';
+var baseEndpoint = topLevelUrl + '/api';
 
 angular.module('services.photos', [])
 .factory('photos', function ($http, $q, $cordovaFileTransfer) {
@@ -131,5 +132,12 @@ angular.module('services.countdown', [])
 
     return {
         getCountdown: getCountdown
+    };
+});
+
+angular.module('services.sponsors', [])
+.factory('sponsors', function ($http, $q) {
+    return {
+        sponsorsUrl: topLevelUrl + '/sponsors.html'
     };
 });

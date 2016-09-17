@@ -211,6 +211,7 @@ angular.module('starter.controllers', [])
         });
 })
 
-.controller('CreditsCtrl', function ($scope) {
-
+.controller('CreditsCtrl', function ($scope, $sce, sponsors) {
+    //pass in sponsors URL as a trustred resource
+    $scope.sponsorsUrl = $sce.trustAsResourceUrl(sponsors.sponsorsUrl);
 });
