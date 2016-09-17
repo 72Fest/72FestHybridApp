@@ -5,7 +5,7 @@
     .directive('ffCountdown', function (countdown, $interval) {
 
         function formatTimeValue(val) {
-            return (val < 10) ? "0" + val : val;
+            return (val < 10) ? '0' + val : val;
         }
 
         function startTimer(scope, endTime) {
@@ -28,10 +28,10 @@
 
                 if (timeDiff <= 0) {
                     //Time has expired, zero everything out
-                    timeLeft.day = "00";
-                    timeLeft.hour = "00";
-                    timeLeft.minute = "00";
-                    timeLeft.second = "00";
+                    timeLeft.day = '00';
+                    timeLeft.hour = '00';
+                    timeLeft.minute = '00';
+                    timeLeft.second = '00';
                 } else {
                     //there still is time left, caclulate the difference
                     timeLeft.day = formatTimeValue(Math.floor(timeDiff / secsInDay));
@@ -51,10 +51,10 @@
             link: function (scope, element, attrs) {
                 //set defaults
                 scope.remainingTime = {
-                    day: "--",
-                    hour: "--",
-                    minute: "--",
-                    second: "--"
+                    day: '--',
+                    hour: '--',
+                    minute: '--',
+                    second: '--'
                 };
 
                 //retrieve remaining time

@@ -128,13 +128,13 @@ angular.module('starter.controllers', [])
                     .then(function (result) {
                         $scope.refreshPhotos();
                         $ionicLoading.hide().then(function(){
-                            console.log("The loading indicator is now hidden");
+                            console.log('The loading indicator is now hidden');
                         });
                     }, function (err) {
-                        console.error("Failed to upload photo!");
+                        console.error('Failed to upload photo!');
                         alert(err);
                         $ionicLoading.hide().then(function(){
-                            console.log("The loading indicator is now hidden");
+                            console.log('The loading indicator is now hidden');
                         });
                     }, function (progress) {
                         var percentage = (progress.loaded/progress.total) * 100;
@@ -151,7 +151,7 @@ angular.module('starter.controllers', [])
                     template: 'Uploading photo ...<br><ion-spinner ng-hide="uploadProgress === 100"></ion-spinner><br>{{uploadProgress}}%',
                     scope: $scope
                 }).then(function(){
-                    console.log("The loading indicator is now displayed");
+                    console.log('The loading indicator is now displayed');
                 });
 
             }, function(err) {
@@ -159,10 +159,10 @@ angular.module('starter.controllers', [])
             });
         }, false);
     }
-
+    
     function sharePhoto(photoPath) {
-        var message = "#72Fest",
-            subject = "Photo shared from 72Fest",
+        var message = '#72Fest',
+            subject = 'Photo shared from 72Fest',
             file = photoPath;
 
         $cordovaSocialSharing

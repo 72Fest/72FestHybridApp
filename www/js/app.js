@@ -53,22 +53,23 @@ angular.module('starter', [
     })
 
     .state('app.home', {
-            url: '/home',
-            views: {
-                'menuContent': {
-                    templateUrl: 'templates/home.html'
-                }
+        url: '/home',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/home.html'
             }
-        })
-        .state('app.teams', {
-            url: '/teams',
-            views: {
-                'menuContent': {
-                    templateUrl: 'templates/teams.html',
-                    controller: 'TeamsCtrl'
-                }
+        }
+    })
+    
+    .state('app.teams', {
+        url: '/teams',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/teams.html',
+                controller: 'TeamsCtrl'
             }
-        })
+        }
+    })
 
     .state('app.single', {
         url: '/teams/:id',
