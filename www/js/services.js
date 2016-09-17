@@ -45,7 +45,7 @@ angular.module('services.photos', [])
                 .then(function (result) {
                     deferred.resolve(result);
                 }, function (err) {
-                    deferred.reject(result);
+                    deferred.reject(err);
                 }, function (progress) {
                     deferred.notify(progress);
                 });
@@ -127,7 +127,7 @@ angular.module('services.countdown', [])
             });
 
         return deferred.promise;
-    };
+    }
 
     return {
         getCountdown: getCountdown
