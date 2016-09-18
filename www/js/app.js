@@ -34,7 +34,7 @@ angular.module('starter', [
     });
 })
 
-.config(function ($stateProvider, $urlRouterProvider, $sceDelegateProvider, $ionicConfigProvider) {
+.config(function ($stateProvider, $urlRouterProvider, $sceDelegateProvider, $ionicConfigProvider, $cordovaInAppBrowserProvider) {
     $stateProvider
 
     .state('app', {
@@ -117,4 +117,14 @@ angular.module('starter', [
 
     //disable showing the last title's text for the nav back button
     $ionicConfigProvider.backButton.previousTitleText(false);
+
+    var defaultOptions = {
+        location: 'yes',
+        clearcache: 'no',
+        toolbar: 'no'
+    };
+
+    document.addEventListener('deviceready', function () {
+        $cordovaInAppBrowserProvider.setDefaultOptions(defaultOptions);
+    }, false);
 });

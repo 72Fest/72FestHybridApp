@@ -13,4 +13,5 @@ $ bower install
 $ ionic plugin add cordova-plugin-file-transfer
 $ ionic plugin add cordova-plugin-camera
 $ ionic plugin add https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git
+$ ionic plugin add cordova-plugin-inappbrowser
 ```

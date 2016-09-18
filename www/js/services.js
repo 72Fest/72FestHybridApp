@@ -1,6 +1,5 @@
 /*global angular, moment, markdown */
-//var topLevelUrl =  'http://api.phoshow.me:3000';
-var topLevelUrl =  'http://192.168.1.12:3000';
+var topLevelUrl =  'http://api.phoshow.me:3000';
 var baseEndpoint = topLevelUrl + '/api';
 
 angular.module('services.photos', [])
@@ -139,7 +138,29 @@ angular.module('services.countdown', [])
 });
 
 angular.module('services.news', [])
-.factory('news', function ($http, $q) {
+.factory('news', function ($http, $q, $sce) {
+
+    function updateMarkdownLinks(nodes) {
+        var nodeType = nodes[0],
+            nodeData;
+
+        if (nodeType === 'link') {
+            nodeData = nodes[1];
+            //if we found a link node, add an onclick to
+            //open the system browser
+            nodeData.class = 'ex-link';
+            nodeData['onclick'] = 'window.open(\'' + nodeData.href +  '\', \'_system\', \'location=yes\')';
+            nodeData.href = '';
+        } else {
+            nodes.forEach(function (curNode) {
+                if (Array.isArray(curNode)) {
+                    updateMarkdownLinks(curNode);
+                }
+            });
+        }
+
+        return nodes;
+    }
 
     function getNews() {
         var deferred = $q.defer();
@@ -148,8 +169,17 @@ angular.module('services.news', [])
                 var results = response.data.message;
                 if (response.data.isSuccess) {
                     deferred.resolve(results.map(function (curVal) {
-                        //render the content to markdown
-                        curVal.content = markdown.toHTML(curVal.content);
+                        //create a json map of the markdown
+                        var tree = markdown.parse(curVal.content);
+                        //we need to update all links to include
+                        //some javascript that will open links
+                        //into a new window
+                        tree = updateMarkdownLinks(tree);
+
+                        //render the object map to HTML now that
+                        //we updated all the links
+                        curVal.content = $sce.trustAsHtml(markdown.renderJsonML(markdown.toHTMLTree(tree)));
+
                         //produce a human-friendly date output
                         curVal.timeStr = moment(curVal.timestamp).fromNow();
                         return curVal;
