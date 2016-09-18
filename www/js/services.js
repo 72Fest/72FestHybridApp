@@ -1,4 +1,4 @@
-/*global angular */
+/*global angular, moment */
 var topLevelUrl =  'http://api.phoshow.me:3000';
 var baseEndpoint = topLevelUrl + '/api';
 
@@ -132,6 +132,34 @@ angular.module('services.countdown', [])
 
     return {
         getCountdown: getCountdown
+    };
+});
+
+angular.module('services.news', [])
+.factory('news', function ($http, $q) {
+
+    function getNews() {
+        var deferred = $q.defer();
+        $http.jsonp(baseEndpoint + '/news?callback=JSON_CALLBACK')
+            .then(function (response) {
+                var results = response.data.message;
+                if (response.data.isSuccess) {
+                    deferred.resolve(results.map(function (curVal) {
+                        curVal.timeStr = moment(curVal.timestamp).fromNow();
+                        return curVal;
+                    }));
+                } else {
+                    deferred.reject('Error in request');
+                }
+            }, function (err) {
+                deferred.reject(err);
+            });
+
+        return deferred.promise;
+    }
+
+    return {
+        getNews: getNews
     };
 });
 

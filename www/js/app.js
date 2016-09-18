@@ -14,6 +14,7 @@ angular.module('starter', [
     'services.photos',
     'services.teams',
     'services.constants',
+    'services.news',
     'ff.countdown'
 ])
 
@@ -57,11 +58,12 @@ angular.module('starter', [
         url: '/home',
         views: {
             'menuContent': {
-                templateUrl: 'templates/home.html'
+                templateUrl: 'templates/home.html',
+                controller: 'HomeCtrl'
             }
         }
     })
-    
+
     .state('app.teams', {
         url: '/teams',
         views: {

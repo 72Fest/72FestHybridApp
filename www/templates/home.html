@@ -2,27 +2,12 @@
     <ion-content>
         <ff-countdown></ff-countdown>
         <br>
-        <div class="card list" >
+        <div class="card list" ng-repeat="newsItem in news">
             <div class="item item-divider">
-                <h2>Example News Header 2</h2>
-                <p>30 August, 2016</p>
+                <h2 ng-bind="newsItem.title"></h2>
+                <p ng-bind="newsItem.timeStr"></p>
             </div>
-            <div class="item item-text-wrap">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo ea commodi molestiae eum facere provident placeat fuga tempore atque laborum laudantium ex alias iusto natus, quam asperiores repudiandae, minima veritatis.</p>
-                <p>Soluta, officia, rerum. Mollitia a maxime minus officiis soluta obcaecati adipisci, aliquid reprehenderit autem aliquam? Nulla impedit sunt quasi vero reprehenderit. Libero enim deleniti assumenda vel quas maiores, ut repudiandae.</p>
-                <p>Et rerum illo, repellendus magnam facilis magni excepturi porro veritatis nesciunt quis deserunt pariatur incidunt nulla neque! Aperiam vero magni pariatur earum quos blanditiis ratione voluptatem a. Ratione, ipsam, ad!</p>
-
-            </div>
-        </div>
-        <div class="card list" >
-            <div class="item item-divider">
-                <h2>Example News Header 1</h2>
-                <p>28 July, 2016</p>
-            </div>
-            <div class="item item-text-wrap">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt distinctio tempora, aliquam voluptates alias accusamus incidunt, iure odit repellendus voluptatem nisi ipsam. Nesciunt sapiente voluptatem, blanditiis explicabo fuga! In, quia.</p>
-
-            </div>
+            <div ng-bind="newsItem.content" class="item item-text-wrap"></div>
         </div>
     </ion-content>
 </ion-view>

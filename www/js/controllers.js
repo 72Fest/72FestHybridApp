@@ -42,6 +42,17 @@ angular.module('starter.controllers', [])
     };
 })
 
+.controller('HomeCtrl', function ($scope, news) {
+    $scope.news = [];
+
+    news.getNews()
+        .then(function (results) {
+            $scope.news = results;
+        }, function (err) {
+            console.log('err:', err);
+        });
+})
+
 .controller('TeamsCtrl', function ($scope, teams) {
     $scope.teams = [];
 
@@ -159,7 +170,7 @@ angular.module('starter.controllers', [])
             });
         }, false);
     }
-    
+
     function sharePhoto(photoPath) {
         var message = '#72Fest',
             subject = 'Photo shared from 72Fest',
