@@ -98,7 +98,7 @@ $item-divider-color: $header-clr;
 
 $photo-element-text-clr: darken($primary-clr, 20%);
 $photo-element-text-size: 16px;
-$photo-element-border-clr: darken($primary-clr, 5%);
+$photo-element-border-clr: darken($primary-clr, 10%);
 .photo-element-container {
     width: 100%;
     margin-bottom: 20px;
@@ -107,7 +107,6 @@ $photo-element-border-clr: darken($primary-clr, 5%);
     .photo-element-header {
         position: relative;
         border-top: 1px solid $photo-element-border-clr;
-        border-bottom: 1px solid $photo-element-border-clr;
         width: 100%p;
         padding: 10px 10px;
         background-color: $primary-clr;
@@ -122,6 +121,7 @@ $photo-element-border-clr: darken($primary-clr, 5%);
     .photo-element-img {
         width: 100%;
         height: auto;
+        border-top: 1px solid $photo-element-border-clr;
     }
 
     .photo-element-divider {
