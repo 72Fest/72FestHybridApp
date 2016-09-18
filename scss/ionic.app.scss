@@ -196,6 +196,14 @@ $news-header-font-size: 21px;
   }
 }
 
+$news-header-txt-clr: darken($news-body-txt-clr, 215%);
+.teams-item {
+  h2 {
+    padding-top: 12px;
+    color: $news-header-txt-clr;
+  }
+}
+
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 
