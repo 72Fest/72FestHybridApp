@@ -12,8 +12,11 @@
             <img class="photo-element-img" ng-src="{{photo.thumb}}" alt=""></img>
             <hr class="photo-element-divider">
             <div class="photo-element-text-container">
+<!--
                 <span class="photo-element-vote-icon-container"><i class="icon ion-thumbsup"></i></span>
                 <span>X Votes</span>
+-->
+                <span class="photo-element-bottom-timestamp" ng-bind="photo.timeStr"></span>
                 <i ng-click='sharePhoto(photo.src)' class="photo-element-share icon ion-share"></i>
             </div>
         </div>

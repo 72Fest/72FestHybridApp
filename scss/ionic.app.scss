@@ -118,6 +118,12 @@ $photo-element-border-clr: darken($primary-clr, 10%);
         color: #fff;
     }
 
+ .photo-element-bottom-timestamp {
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 36px;
+    }
+
     .photo-element-img {
         width: 100%;
         height: auto;
@@ -132,7 +138,7 @@ $photo-element-border-clr: darken($primary-clr, 10%);
     .photo-element-text-container {
         font-size: $photo-element-text-size;
         position: relative;
-        margin: 2px 30px;
+        margin: 2px 15px;
         color: $photo-element-text-clr;
 
         .photo-element-vote-icon-container {
