@@ -40,7 +40,11 @@ $item-divider-color: $header-clr;
 //
 // Component styles
 .item.item-divider {
-  h2 {
+  h1 {
+    font-size: 21px;
+    margin-bottom: 5px;
+  }
+  h1,h2,h3,h4 {
     color: $header-clr;
   }
 
@@ -49,9 +53,6 @@ $item-divider-color: $header-clr;
   }
 }
 
-.item-content h2 {
-  color: $list-header-clr;
-}
 .bar {
   font-family: $headings-font-family;
 }
@@ -156,6 +157,43 @@ $photo-element-border-clr: darken($primary-clr, 10%);
         float: right;
         font-size: $photo-element-text-size + 5px;
     }
+}
+
+$news-body-txt-clr: #666;
+$news-header-txt-clr: darken($news-body-txt-clr, 5%);
+$news-header-font-size: 21px;
+.news-item--content {
+  a {
+    color: darken($primary-clr, 10%);
+  }
+
+  h1,h2,h3,h4 {
+    color: $news-header-txt-clr;
+  }
+
+  h1 {
+    font-size: $news-header-font-size;
+  }
+
+  &.item {
+    p {
+      font-size: 18px;
+      line-height: 25px;
+    }
+  }
+
+  ol,ul {
+    padding-left: 20px;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  li {
+    padding-left: 5px;
+    list-style-type: square;
+  }
 }
 
 // The path for our ionicons font files, relative to the built CSS in www/css
