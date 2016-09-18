@@ -1,5 +1,6 @@
 /*global angular, moment, markdown */
-var topLevelUrl =  'http://api.phoshow.me:3000';
+//var topLevelUrl =  'http://api.phoshow.me:3000';
+var topLevelUrl =  'http://192.168.1.12:3000';
 var baseEndpoint = topLevelUrl + '/api';
 
 angular.module('services.photos', [])
@@ -21,7 +22,9 @@ angular.module('services.photos', [])
                         return {
                             src: baseUrl + '/' + val.photoUrl,
                             thumb: baseUrl + '/' + val.thumbUrl,
-                            timestamp: val.timestamp
+                            timestamp: val.timestamp,
+                            isFilmHour: val.isFilmHour || false,
+                            filmHour: val.filmHour || ''
                         };
                     });
 
