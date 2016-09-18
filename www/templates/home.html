@@ -7,7 +7,7 @@
                 <h2 ng-bind="newsItem.title"></h2>
                 <p ng-bind="newsItem.timeStr"></p>
             </div>
-            <div ng-bind="newsItem.content" class="item item-text-wrap"></div>
+            <div ng-bind-html="newsItem.content" class="item item-text-wrap"></div>
         </div>
     </ion-content>
 </ion-view>

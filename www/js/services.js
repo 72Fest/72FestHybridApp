@@ -1,4 +1,4 @@
-/*global angular, moment */
+/*global angular, moment, markdown */
 var topLevelUrl =  'http://api.phoshow.me:3000';
 var baseEndpoint = topLevelUrl + '/api';
 
@@ -145,6 +145,9 @@ angular.module('services.news', [])
                 var results = response.data.message;
                 if (response.data.isSuccess) {
                     deferred.resolve(results.map(function (curVal) {
+                        //render the content to markdown
+                        curVal.content = markdown.toHTML(curVal.content);
+                        //produce a human-friendly date output
                         curVal.timeStr = moment(curVal.timestamp).fromNow();
                         return curVal;
                     }));
