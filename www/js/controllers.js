@@ -42,15 +42,39 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('HomeCtrl', function ($scope, news) {
+.controller('HomeCtrl', function ($scope, $rootScope, $interval, news) {
+    var timestampUpdateInterval = 45000;
     $scope.news = [];
 
-    news.getNews()
-        .then(function (results) {
-            $scope.news = results;
-        }, function (err) {
-            console.log('err:', err);
+    function getNews() {
+        return news.getNews()
+            .then(function (results) {
+                $scope.news = results;
+                return results;
+            }, function (err) {
+                console.log('err:', err);
+                return err;
+            });
+    }
+
+    function updateTimestamps() {
+        $scope.news.forEach(function(curObj) {
+            curObj.timeStr = moment(curObj.timestamp).fromNow();
         });
+    }
+
+    $interval(function () {
+        updateTimestamps();
+    }, timestampUpdateInterval);
+
+    //when we return back to this view, update the news
+    $rootScope.$on('$stateChangeSuccess', function (event, toState) {
+        if (toState.name === 'app.home') {
+            getNews();
+        }
+    });
+
+    getNews();
 })
 
 .controller('TeamsCtrl', function ($scope, teams) {
