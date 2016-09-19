@@ -101,7 +101,7 @@ angular.module('starter.controllers', [])
         });
 })
 
-.controller('PhotosCtrl', function ($scope, $timeout, photos, $cordovaCamera, $cordovaSocialSharing, $ionicLoading) {
+.controller('PhotosCtrl', function ($scope, $timeout, photos, $interval, $cordovaCamera, $cordovaSocialSharing, $ionicLoading) {
     var options = {
         quality: 80,
         allowEdit: false,
@@ -238,6 +238,19 @@ angular.module('starter.controllers', [])
     $scope.sharePhoto = sharePhoto;
     $scope.getNextPhotos = getNextPhotos;
     $scope.hasMorePhotos = hasMorePhotos;
+
+    $interval(function () {
+        var genTimestamp = function (obj) {
+            obj.timeStr = processTimestamp(obj.timestamp);
+            return obj;
+        };
+
+        $scope.photos = $scope.photos.map(genTimestamp);
+    }, 45000);
+
+    document.addEventListener('resume', function () {
+        $scope.refreshPhotos();
+    });
 
     //load in photos
     getPhotos()
