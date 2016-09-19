@@ -110,7 +110,7 @@ angular.module('starter.controllers', [])
     };
 
     var cachedPhotos = [];
-    var photoLimit = 5;
+    var photoLimit = 4;
     var photoLimitIdx = 0;
 
     function processTimestamp(tsStr) {
