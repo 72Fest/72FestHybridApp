@@ -251,7 +251,16 @@ angular.module('starter.controllers', [])
     $scope.sponsorsUrl = $sce.trustAsResourceUrl(constants.sponsorsUrl);
 })
 
-.controller('ContactCtrl', function ($scope, $sce, constants) {
+.controller('ContactCtrl', function ($scope, $sce, $ionicLoading, constants) {
+    var frame = document.getElementById('contact-frame');
+
+    frame.addEventListener('load', function (e) {
+        $ionicLoading.hide();
+    });
+    $ionicLoading.show({
+        template: 'Loading contact form...'
+    });
+
     //pass in sponsors URL as a trustred resource
     $scope.contactUrl = $sce.trustAsResourceUrl(constants.contactUrl);
 });
