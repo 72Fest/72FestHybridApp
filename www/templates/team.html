@@ -7,14 +7,14 @@
             </div>
             <div class="item item-body">
                 <img class="full-image" ng-src="{{team.logo}}" alt="">
-                <p ng-bind="team.bio"></p>
+                <p class="teams-item-bio" ng-bind="team.bio"></p>
             </div>
         </div>
 
         <!-- list out films -->
         <div class="card list" ng-repeat="vid in team.films" >
             <div class="item item-avatar item-icon-left item-divider">
-                <i class="icon ion-videocamera"></i>
+                <i class="teams-item-film-icon icon ion-ios-film"></i>
                 <h2 ng-bind="vid.title"></h2>
                 <p>{{vid.year}} film fest entry</p>
             </div>
