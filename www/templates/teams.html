@@ -4,6 +4,7 @@
             <ion-item class="teams-item item-avatar" collection-repeat="team in teams" href="#/app/teams/{{team._id}}">
                 <img ng-src="{{team.logo_thumb}}" alt="">
                 <h2 ng-bind="team.teamName"></h2>
+                <p ng-bind="team.teamType"></p>
             </ion-item>
         </ion-list>
     </ion-content>
