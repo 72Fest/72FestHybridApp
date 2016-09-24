@@ -144,9 +144,14 @@ $photo-element-border-clr: darken($primary-clr, 10%);
         margin: 2px 15px;
         color: $photo-element-text-clr;
 
-        .photo-element-vote-icon-container {
-            margin-right: 20px;
-            font-size: $photo-element-text-size + 15px;
+        .photo-element-vote-container {
+          display: inline-block;
+          margin-right: 20px;
+
+          .photo-element-vote-icon-container {
+              margin-right: 20px;
+              font-size: $photo-element-text-size + 15px;
+          }
         }
 
         .photo-element-share {

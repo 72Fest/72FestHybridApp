@@ -101,7 +101,7 @@ angular.module('starter.controllers', [])
         });
 })
 
-.controller('PhotosCtrl', function ($scope, $timeout, photos, $interval, $cordovaCamera, $cordovaSocialSharing, $ionicLoading) {
+.controller('PhotosCtrl', function ($scope, $timeout, photos, votes, $interval, $cordovaCamera, $cordovaSocialSharing, $ionicLoading) {
     var options = {
         quality: 80,
         allowEdit: false,
@@ -110,6 +110,7 @@ angular.module('starter.controllers', [])
     };
 
     var cachedPhotos = [];
+    var cachedVotes = {};
     var photoLimit = 4;
     var photoLimitIdx = 0;
 
@@ -209,6 +210,40 @@ angular.module('starter.controllers', [])
             });
     }
 
+    function getVote(photoId) {
+        return cachedVotes[photoId] || 0;
+        // return votes.getVote(photoId)
+        //     .then(function (result) {
+        //         return result.votes;
+        //     }, function (err) {
+        //         console.log(err);
+        //     });
+    }
+
+    function getVotes() {
+        return votes.getVotes()
+            .then(function (results) {
+                //cachedVotes
+                results.forEach(function (curObj) {
+                    cachedVotes[curObj.id] = curObj.votes;
+                });
+                return results.votes;
+            }, function (err) {
+                console.log(err);
+                return err;
+            });
+    }
+
+    function castVote(photoId, isYes) {
+        votes.castVote(photoId, isYes)
+            .then(function (result) {
+                console.log(result);
+            }, function (err) {
+                console.log(err);
+            });
+        console.log('ya! ', photoId);
+    }
+
     $scope.photos = [];
     $scope.columns = 4;
 
@@ -238,6 +273,8 @@ angular.module('starter.controllers', [])
     $scope.sharePhoto = sharePhoto;
     $scope.getNextPhotos = getNextPhotos;
     $scope.hasMorePhotos = hasMorePhotos;
+    $scope.castVote = castVote;
+    $scope.getVote = getVote;
 
     $interval(function () {
         var genTimestamp = function (obj) {
@@ -252,8 +289,9 @@ angular.module('starter.controllers', [])
         $scope.refreshPhotos();
     });
 
-    //load in photos
-    getPhotos()
+    //get current votes then load in photos
+    getVotes()
+        .then(getPhotos)
         .then(function (results) {
             getNextPhotos();
         });
