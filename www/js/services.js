@@ -19,6 +19,7 @@ angular.module('services.photos', [])
                     photoData = response.data.message.photos;
                     results = photoData.map(function (val) {
                         return {
+                            id: val.id,
                             src: baseUrl + '/' + val.photoUrl,
                             thumb: baseUrl + '/' + val.thumbUrl,
                             timestamp: val.timestamp,
@@ -196,6 +197,71 @@ angular.module('services.news', [])
 
     return {
         getNews: getNews
+    };
+});
+
+angular.module('services.votes', [])
+.factory('votes', function ($http, $q, $httpParamSerializer) {
+    function getVote(voteId) {
+        var deferred = $q.defer();
+        $http.jsonp(baseEndpoint + '/votes/' + voteId + '?callback=JSON_CALLBACK')
+            .then(function (response) {
+                var results = response.data.message;
+                if (response.data.isSuccess) {
+                    deferred.resolve(results);
+                } else {
+                    deferred.reject('Error in votesrequest');
+                }
+            }, function (err) {
+                deferred.reject(err);
+            });
+
+        return deferred.promise;
+    }
+
+    function getVotes() {
+        var deferred = $q.defer();
+        $http.jsonp(baseEndpoint + '/votes?callback=JSON_CALLBACK')
+            .then(function (response) {
+                var results = response.data.message;
+                if (response.data.isSuccess) {
+                    deferred.resolve(results);
+                } else {
+                    deferred.reject('Error in votesrequest');
+                }
+            }, function (err) {
+                deferred.reject(err);
+            });
+
+        return deferred.promise;
+    }
+
+    function castVote(photoId, isYes) {
+        var deferred = $q.defer(),
+            postData = {
+                id: photoId,
+                unlike: !isYes
+            };
+
+        $http.post(baseEndpoint + '/vote', postData)
+            .then(function (response) {
+                var results = response.data.message;
+                if (response.data.isSuccess) {
+                    deferred.resolve(results);
+                } else {
+                    deferred.reject('Error in votesrequest');
+                }
+            }, function (err) {
+                deferred.reject(err);
+            });
+
+        return deferred.promise;
+    }
+
+    return {
+        getVote: getVote,
+        getVotes: getVotes,
+        castVote: castVote
     };
 });
 
