@@ -101,7 +101,7 @@ angular.module('starter.controllers', [])
         });
 })
 
-.controller('PhotosCtrl', function ($scope, $timeout, photos, votes, socketio, $interval, $cordovaCamera, $cordovaSocialSharing, $ionicLoading) {
+.controller('PhotosCtrl', function ($scope, $timeout, $q, photos, votes, socketio, $interval, $cordovaCamera, $cordovaSocialSharing, $ionicLoading, $cordovaPreferences) {
     var options = {
         quality: 80,
         allowEdit: false,
@@ -111,8 +111,10 @@ angular.module('starter.controllers', [])
 
     var cachedPhotos = [];
     var cachedVotes = {};
+    var voteStates = {};
     var photoLimit = 4;
     var photoLimitIdx = 0;
+    var PREF_VOTES_DICT_NAME = '72FestVotes';
 
     function processTimestamp(tsStr) {
         var ts = moment(tsStr);
@@ -133,12 +135,20 @@ angular.module('starter.controllers', [])
                     obj.timeStr = processTimestamp(obj.timestamp);
                     //retrieve current number of votes
                     obj.votes = getVote(obj.id);
+                    //get current state for vote
+                    obj.isVoted = getVoteState(obj.id);
                     return obj;
                 };
 
-            $scope.photos = $scope.photos.concat(vals).map(mapAddtlData);
-            photoLimitIdx += 1;
-            $scope.$broadcast('scroll.infiniteScrollComplete');
+            //retrieve all vote states for new images before proceeding
+            updateVoteStates(vals).finally(function () {
+                $timeout(function () {
+                    //append values and add additional data
+                    $scope.photos = $scope.photos.concat(vals).map(mapAddtlData);
+                    photoLimitIdx += 1;
+                    $scope.$broadcast('scroll.infiniteScrollComplete');
+                });
+            });
         }
     }
 
@@ -215,12 +225,31 @@ angular.module('starter.controllers', [])
 
     function getVote(photoId) {
         return cachedVotes[photoId] || 0;
-        // return votes.getVote(photoId)
-        //     .then(function (result) {
-        //         return result.votes;
-        //     }, function (err) {
-        //         console.log(err);
-        //     });
+    }
+
+    function getVoteState(photoId) {
+        return voteStates[photoId] || false;
+    }
+
+    function updateVoteStates(curPhotos) {
+        var checkDict = function (photoData) {
+            return $cordovaPreferences.fetch(photoData.id, PREF_VOTES_DICT_NAME)
+                .then(function (result) {
+                    voteStates[photoData.id] = result || false;
+                    return result;
+                }, function (err) {
+                    console.log('Error retrieving vote status: ' + err);
+                    voteStates[photoData.id] = false;
+                    return false;
+                });
+        };
+
+        //loop through each photo and check the status
+        return curPhotos.reduce(function (prevPromise, curObj) {
+            return prevPromise.then(function (result) {
+                return checkDict(curObj);
+            });
+        }, $q.when());
     }
 
     function getVotes() {
@@ -240,7 +269,20 @@ angular.module('starter.controllers', [])
     function castVote(photoId, isYes) {
         votes.castVote(photoId, isYes)
             .then(function (result) {
-                //console.log(result);
+                var idx;
+                //the vote was a success, save the vote state
+                voteStates[photoId] = isYes;
+                $cordovaPreferences.store(photoId, isYes, PREF_VOTES_DICT_NAME);
+
+                //update the value in the photos array
+                for (idx = 0; idx < $scope.photos.length; idx++) {
+                    if ($scope.photos[idx].id === photoId) {
+                        $timeout(function () {
+                            $scope.photos[idx].isVoted = isYes;
+                        });
+                        break;
+                    }
+                }
             }, function (err) {
                 console.log('failed to retrieve vote results', err);
             });
