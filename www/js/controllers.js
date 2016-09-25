@@ -115,6 +115,7 @@ angular.module('starter.controllers', [])
     var photoLimit = 4;
     var photoLimitIdx = 0;
     var PREF_VOTES_DICT_NAME = '72FestVotes';
+    var isAvailableToFetch = true;
 
     function processTimestamp(tsStr) {
         var ts = moment(tsStr);
@@ -127,7 +128,7 @@ angular.module('starter.controllers', [])
     }
 
     function getNextPhotos() {
-        if (hasMorePhotos()) {
+        if (hasMorePhotos() && isAvailableToFetch) {
             var startIdx = photoLimit * photoLimitIdx,
                 vals = cachedPhotos.slice(startIdx, startIdx + photoLimit),
                 mapAddtlData = function (obj) {
@@ -140,13 +141,18 @@ angular.module('starter.controllers', [])
                     return obj;
                 };
 
+            isAvailableToFetch = false;
             //retrieve all vote states for new images before proceeding
+
             updateVoteStates(vals).finally(function () {
                 $timeout(function () {
                     //append values and add additional data
                     $scope.photos = $scope.photos.concat(vals).map(mapAddtlData);
+                    console.log('we got results and new length is:' + $scope.photos.length);
                     photoLimitIdx += 1;
                     $scope.$broadcast('scroll.infiniteScrollComplete');
+                    //we got results, and are no longer pending
+                    isAvailableToFetch = true;
                 });
             });
         }
