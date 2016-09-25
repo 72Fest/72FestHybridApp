@@ -370,9 +370,16 @@ angular.module('starter.controllers', [])
         });
 })
 
-.controller('CreditsCtrl', function ($scope, $sce, constants) {
+.controller('CreditsCtrl', function ($scope, sponsors) {
     //pass in sponsors URL as a trustred resource
-    $scope.sponsorsUrl = $sce.trustAsResourceUrl(constants.sponsorsUrl);
+    sponsors.getSponsors()
+        .then(function (results) {
+            $scope.sponsors = results;
+        });
+
+    $scope.openUrl = function (url) {
+        window.open(url, '_system');
+    };
 })
 
 .controller('ContactCtrl', function ($scope, $sce, $ionicLoading, constants) {

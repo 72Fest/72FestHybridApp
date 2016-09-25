@@ -287,6 +287,34 @@ angular.module('services.socketio', [])
     };
 });
 
+angular.module('services.sponsors', [])
+.factory('sponsors', function ($http, $q) {
+    function getSponsors() {
+        var deferred = $q.defer();
+        $http.jsonp(baseEndpoint + '/sponsors?callback=JSON_CALLBACK')
+            .then(function (response) {
+                var results = response.data.message;
+                if (response.data.isSuccess) {
+                    //append base URL for all images
+                    deferred.resolve(results.map(function (curSponsor) {
+                        curSponsor.src = topLevelUrl + '/' + curSponsor.src;
+                        return curSponsor;
+                    }));
+                } else {
+                    deferred.reject('Error in sponsors request');
+                }
+            }, function (err) {
+                deferred.reject(err);
+            });
+
+        return deferred.promise;
+    }
+
+    return {
+        getSponsors: getSponsors
+    };
+});
+
 angular.module('services.constants', [])
 .factory('constants', function ($http, $q) {
     return {
