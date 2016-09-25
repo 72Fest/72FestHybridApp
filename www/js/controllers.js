@@ -114,10 +114,6 @@ angular.module('starter.controllers', [])
     var photoLimit = 4;
     var photoLimitIdx = 0;
 
-    socketio.socket.on('voteCast', function (data) {
-        console.log('A vote was cast', data);
-    });
-
     function processTimestamp(tsStr) {
         var ts = moment(tsStr);
         return ts.fromNow();
@@ -132,12 +128,15 @@ angular.module('starter.controllers', [])
         if (hasMorePhotos()) {
             var startIdx = photoLimit * photoLimitIdx,
                 vals = cachedPhotos.slice(startIdx, startIdx + photoLimit),
-                genTimestamp = function (obj) {
+                mapAddtlData = function (obj) {
+                    //compute string version of timestamp
                     obj.timeStr = processTimestamp(obj.timestamp);
+                    //retrieve current number of votes
+                    obj.votes = getVote(obj.id);
                     return obj;
                 };
 
-            $scope.photos = $scope.photos.concat(vals).map(genTimestamp);
+            $scope.photos = $scope.photos.concat(vals).map(mapAddtlData);
             photoLimitIdx += 1;
             $scope.$broadcast('scroll.infiniteScrollComplete');
         }
@@ -241,11 +240,10 @@ angular.module('starter.controllers', [])
     function castVote(photoId, isYes) {
         votes.castVote(photoId, isYes)
             .then(function (result) {
-                console.log(result);
+                //console.log(result);
             }, function (err) {
-                console.log(err);
+                console.log('failed to retrieve vote results', err);
             });
-        console.log('ya! ', photoId);
     }
 
     $scope.photos = [];
@@ -260,7 +258,8 @@ angular.module('starter.controllers', [])
     };
 
     $scope.refreshPhotos = function () {
-        getPhotos()
+        getVotes()
+            .then(getPhotos)
             .then(function () {
                 //reset the photo index and grab latest photos
                 photoLimitIdx = 0;
@@ -272,6 +271,28 @@ angular.module('starter.controllers', [])
                 $scope.$broadcast('scroll.refreshComplete');
             });
     };
+
+    socketio.socket.on('voteCast', function (voteData) {
+        var idx,
+            curObj,
+            photoId = voteData.id,
+            voteTotal = voteData.votes;
+
+        //cache new vote total
+        cachedVotes[photoId] = voteTotal;
+
+        //check if photo is retrieved, if so, update value
+        //and let data binding do the rest
+        for (idx = 0; idx < $scope.photos.length; idx++) {
+            curObj = $scope.photos[idx];
+            if (curObj.id === photoId) {
+                $timeout(function () {
+                    curObj.votes = voteTotal;
+                });
+                break;
+            }
+        }
+    });
 
     $scope.uploadProgress = 0;
     $scope.sharePhoto = sharePhoto;

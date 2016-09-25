@@ -15,7 +15,7 @@
 
                 <div class="photo-element-vote-container"  ng-click="castVote(photo.id, true)">
                     <span class="photo-element-vote-icon-container"><i class="icon ion-thumbsup"></i></span>
-                    <span ng-bind="getVote(photo.id)">X Votes</span>
+                    <span ng-bind="photo.votes"></span>
                 </div>
 
                 <span class="photo-element-bottom-timestamp" ng-bind="photo.timeStr"></span>
