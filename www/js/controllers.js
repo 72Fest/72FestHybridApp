@@ -101,7 +101,7 @@ angular.module('starter.controllers', [])
         });
 })
 
-.controller('PhotosCtrl', function ($scope, $timeout, photos, votes, $interval, $cordovaCamera, $cordovaSocialSharing, $ionicLoading) {
+.controller('PhotosCtrl', function ($scope, $timeout, photos, votes, socketio, $interval, $cordovaCamera, $cordovaSocialSharing, $ionicLoading) {
     var options = {
         quality: 80,
         allowEdit: false,
@@ -113,6 +113,10 @@ angular.module('starter.controllers', [])
     var cachedVotes = {};
     var photoLimit = 4;
     var photoLimitIdx = 0;
+
+    socketio.socket.on('voteCast', function (data) {
+        console.log('A vote was cast', data);
+    });
 
     function processTimestamp(tsStr) {
         var ts = moment(tsStr);

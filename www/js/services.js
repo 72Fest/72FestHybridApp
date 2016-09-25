@@ -1,4 +1,4 @@
-/*global angular, moment, markdown */
+/*global angular, moment, markdown, io */
 var topLevelUrl =  'http://api.phoshow.me:3000';
 var baseEndpoint = topLevelUrl + '/api';
 
@@ -262,6 +262,28 @@ angular.module('services.votes', [])
         getVote: getVote,
         getVotes: getVotes,
         castVote: castVote
+    };
+});
+
+angular.module('services.socketio', [])
+.factory('socketio', function ($http, $q) {
+    var socket;
+
+    if (window.io) {
+        socket = io.connect(topLevelUrl);
+    } else {
+        //just in case we cannot connect we shouldn't fail
+        //we'll pass a dummy object along
+        console.warn('Could not connect to socket.io host');
+        socket = {
+            on: function () {
+                //does nothing
+            }
+        };
+    }
+
+    return {
+        socket: socket
     };
 });
 
