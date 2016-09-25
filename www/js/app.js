@@ -15,6 +15,8 @@ angular.module('starter', [
     'services.teams',
     'services.constants',
     'services.news',
+    'services.votes',
+    'services.socketio',
     'ff.countdown'
 ])
 

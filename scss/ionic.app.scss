@@ -121,12 +121,6 @@ $photo-element-border-clr: darken($primary-clr, 10%);
         color: #fff;
     }
 
- .photo-element-bottom-timestamp {
-        font-weight: bold;
-        font-size: 18px;
-        line-height: 36px;
-    }
-
     .photo-element-img {
         width: 100%;
         height: auto;
@@ -144,21 +138,42 @@ $photo-element-border-clr: darken($primary-clr, 10%);
         margin: 2px 15px;
         color: $photo-element-text-clr;
 
-        .photo-element-vote-icon-container {
-            margin-right: 20px;
-            font-size: $photo-element-text-size + 15px;
+        i {
+          vertical-align: middle;
+        }
+
+        .photo-element-vote-container {
+          display: inline-block;
+          margin-right: 20px;
+
+          .photo-element-vote-icon-container {
+              margin-right: 20px;
+              font-size: $photo-element-text-size + 20px;
+              line-height: $photo-element-text-size + 15px;
+
+              .photo-element-vote-count {
+                margin-left: 10px;
+                font-size: $photo-element-text-size + 10px;
+                line-height: $photo-element-text-size + 15px;
+              }
+          }
+
+        }
+
+        .photo-element-bottom-timestamp {
+          font-size: 21px;
+          line-height: $photo-element-text-size + 30px;
+          margin-right: 20px;
+          float: right;
         }
 
         .photo-element-share {
-            font-size: $photo-element-text-size + 20px;
+            float: right;
+            font-size: $photo-element-text-size + 25px;
         }
 
     }
 
-    .photo-element-share {
-        float: right;
-        font-size: $photo-element-text-size + 5px;
-    }
 }
 
 $news-body-txt-clr: #666;

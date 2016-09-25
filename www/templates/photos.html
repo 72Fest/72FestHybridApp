@@ -12,12 +12,13 @@
             <img class="photo-element-img" ng-src="{{photo.thumb}}" alt=""></img>
             <hr class="photo-element-divider">
             <div class="photo-element-text-container">
-<!--
-                <span class="photo-element-vote-icon-container"><i class="icon ion-thumbsup"></i></span>
-                <span>X Votes</span>
--->
-                <span class="photo-element-bottom-timestamp" ng-bind="photo.timeStr"></span>
+
+                <div class="photo-element-vote-container"  ng-click="castVote(photo.id, !photo.isVoted)">
+                    <span class="photo-element-vote-icon-container"><i ng-class="{'ion-ios-heart': photo.isVoted, 'ion-ios-heart-outline': !photo.isVoted}" class="icon"></i><span class="photo-element-vote-count" ng-bind="photo.votes"></span></span>
+                </div>
+
                 <i ng-click='sharePhoto(photo.src)' class="photo-element-share icon ion-share"></i>
+                <span class="photo-element-bottom-timestamp" ng-bind="photo.timeStr"></span>
             </div>
         </div>
 

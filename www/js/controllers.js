@@ -101,7 +101,7 @@ angular.module('starter.controllers', [])
         });
 })
 
-.controller('PhotosCtrl', function ($scope, $timeout, photos, $interval, $cordovaCamera, $cordovaSocialSharing, $ionicLoading) {
+.controller('PhotosCtrl', function ($scope, $timeout, $q, photos, votes, socketio, $interval, $cordovaCamera, $cordovaSocialSharing, $ionicLoading, $cordovaPreferences) {
     var options = {
         quality: 80,
         allowEdit: false,
@@ -110,8 +110,11 @@ angular.module('starter.controllers', [])
     };
 
     var cachedPhotos = [];
+    var cachedVotes = {};
+    var voteStates = {};
     var photoLimit = 4;
     var photoLimitIdx = 0;
+    var PREF_VOTES_DICT_NAME = '72FestVotes';
 
     function processTimestamp(tsStr) {
         var ts = moment(tsStr);
@@ -127,14 +130,25 @@ angular.module('starter.controllers', [])
         if (hasMorePhotos()) {
             var startIdx = photoLimit * photoLimitIdx,
                 vals = cachedPhotos.slice(startIdx, startIdx + photoLimit),
-                genTimestamp = function (obj) {
+                mapAddtlData = function (obj) {
+                    //compute string version of timestamp
                     obj.timeStr = processTimestamp(obj.timestamp);
+                    //retrieve current number of votes
+                    obj.votes = getVote(obj.id);
+                    //get current state for vote
+                    obj.isVoted = getVoteState(obj.id);
                     return obj;
                 };
 
-            $scope.photos = $scope.photos.concat(vals).map(genTimestamp);
-            photoLimitIdx += 1;
-            $scope.$broadcast('scroll.infiniteScrollComplete');
+            //retrieve all vote states for new images before proceeding
+            updateVoteStates(vals).finally(function () {
+                $timeout(function () {
+                    //append values and add additional data
+                    $scope.photos = $scope.photos.concat(vals).map(mapAddtlData);
+                    photoLimitIdx += 1;
+                    $scope.$broadcast('scroll.infiniteScrollComplete');
+                });
+            });
         }
     }
 
@@ -209,6 +223,71 @@ angular.module('starter.controllers', [])
             });
     }
 
+    function getVote(photoId) {
+        return cachedVotes[photoId] || 0;
+    }
+
+    function getVoteState(photoId) {
+        return voteStates[photoId] || false;
+    }
+
+    function updateVoteStates(curPhotos) {
+        var checkDict = function (photoData) {
+            return $cordovaPreferences.fetch(photoData.id, PREF_VOTES_DICT_NAME)
+                .then(function (result) {
+                    voteStates[photoData.id] = result || false;
+                    return result;
+                }, function (err) {
+                    console.log('Error retrieving vote status: ' + err);
+                    voteStates[photoData.id] = false;
+                    return false;
+                });
+        };
+
+        //loop through each photo and check the status
+        return curPhotos.reduce(function (prevPromise, curObj) {
+            return prevPromise.then(function (result) {
+                return checkDict(curObj);
+            });
+        }, $q.when());
+    }
+
+    function getVotes() {
+        return votes.getVotes()
+            .then(function (results) {
+                //cachedVotes
+                results.forEach(function (curObj) {
+                    cachedVotes[curObj.id] = curObj.votes;
+                });
+                return results.votes;
+            }, function (err) {
+                console.log(err);
+                return err;
+            });
+    }
+
+    function castVote(photoId, isYes) {
+        votes.castVote(photoId, isYes)
+            .then(function (result) {
+                var idx;
+                //the vote was a success, save the vote state
+                voteStates[photoId] = isYes;
+                $cordovaPreferences.store(photoId, isYes, PREF_VOTES_DICT_NAME);
+
+                //update the value in the photos array
+                for (idx = 0; idx < $scope.photos.length; idx++) {
+                    if ($scope.photos[idx].id === photoId) {
+                        $timeout(function () {
+                            $scope.photos[idx].isVoted = isYes;
+                        });
+                        break;
+                    }
+                }
+            }, function (err) {
+                console.log('failed to retrieve vote results', err);
+            });
+    }
+
     $scope.photos = [];
     $scope.columns = 4;
 
@@ -221,7 +300,8 @@ angular.module('starter.controllers', [])
     };
 
     $scope.refreshPhotos = function () {
-        getPhotos()
+        getVotes()
+            .then(getPhotos)
             .then(function () {
                 //reset the photo index and grab latest photos
                 photoLimitIdx = 0;
@@ -234,10 +314,34 @@ angular.module('starter.controllers', [])
             });
     };
 
+    socketio.socket.on('voteCast', function (voteData) {
+        var idx,
+            curObj,
+            photoId = voteData.id,
+            voteTotal = voteData.votes;
+
+        //cache new vote total
+        cachedVotes[photoId] = voteTotal;
+
+        //check if photo is retrieved, if so, update value
+        //and let data binding do the rest
+        for (idx = 0; idx < $scope.photos.length; idx++) {
+            curObj = $scope.photos[idx];
+            if (curObj.id === photoId) {
+                $timeout(function () {
+                    curObj.votes = voteTotal;
+                });
+                break;
+            }
+        }
+    });
+
     $scope.uploadProgress = 0;
     $scope.sharePhoto = sharePhoto;
     $scope.getNextPhotos = getNextPhotos;
     $scope.hasMorePhotos = hasMorePhotos;
+    $scope.castVote = castVote;
+    $scope.getVote = getVote;
 
     $interval(function () {
         var genTimestamp = function (obj) {
@@ -252,8 +356,9 @@ angular.module('starter.controllers', [])
         $scope.refreshPhotos();
     });
 
-    //load in photos
-    getPhotos()
+    //get current votes then load in photos
+    getVotes()
+        .then(getPhotos)
         .then(function (results) {
             getNextPhotos();
         });
