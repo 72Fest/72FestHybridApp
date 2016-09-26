@@ -233,6 +233,14 @@ $news-header-txt-clr: darken($news-body-txt-clr, 20%);
   font-size: 50px;
   width: 40px;
 }
+
+//Sponsor styles
+.bar.sponsors-subheader {
+  background-color:  rgba($primary-clr, 0.6);
+  h1 {
+    color: white;
+  }
+}
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 

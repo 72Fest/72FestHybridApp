@@ -1,9 +1,18 @@
 <ion-view view-title="<img class='view-title-image' src='img/72HeaderImage.svg'>">
-    <ion-content overflow-scroll="true">
-        <h2>Sponsors</h2>
-        <div class="sponsor" ng-repeat="sponsor in sponsors">
-            <a ng-click="openUrl('{{sponsor.href}}')"> <img ng-src="{{sponsor.src}}" alt="{{sponsor.alt}}"></a>
-            <p ng-bind="sponsor.text"></p>
+    <div class="bar bar-subheader sponsors-subheader">
+        <h1 class="title">Sponsors</h1>
+    </div>
+    <ion-content class="has-subheader">
+        <div class="card list" ng-repeat="sponsor in sponsors">
+            <div class="item item-divider">
+                <h2 ng-bind="sponsor.text"></h2>
+            </div>
+
+            <div class="item item-body">
+                <a ng-click="openUrl('{{sponsor.href}}')">
+                    <img class="full-image" ng-src="{{sponsor.src}}" alt="{{sponsor.alt}}">
+                </a>
+            </div>
         </div>
     </ion-content>
 </ion-view>
