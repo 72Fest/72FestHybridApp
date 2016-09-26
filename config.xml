@@ -2,14 +2,15 @@
 <widget id="com.lonnygomes.72Fest" version="6.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>72 Fest</name>
   <description>
-        An Ionic Framework and Cordova project.
+        The official app of the 72 Film Fest
     </description>
-  <author email="you@example.com" href="http://example.com.com/">
-      Your Name Here
-    </author>
+  <author email="you@example.com" href="http://www.72fest.com">
+      Lonny Gomes and Chris Howell
+  </author>
   <content src="index.html"/>
   <allow-navigation href="*"/>
   <access origin="*"/>
+  <preference name="orientation" value="portrait" />
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>
