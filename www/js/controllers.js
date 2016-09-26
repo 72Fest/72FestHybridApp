@@ -42,9 +42,12 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('HomeCtrl', function ($scope, $rootScope, $interval, news) {
+.controller('HomeCtrl', function ($scope, $rootScope, $interval, news, notifications) {
     var timestampUpdateInterval = 45000;
     $scope.news = [];
+
+    //ask permission for notifications on startup
+    notifications.registerPermission();
 
     function getNews() {
         return news.getNews()

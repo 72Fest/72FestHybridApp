@@ -315,6 +315,63 @@ angular.module('services.sponsors', [])
     };
 });
 
+angular.module('services.notifications', [])
+.factory('notifications', function ($cordovaLocalNotification, socketio) {
+    var curNotificationIdx = 1;
+
+    function scheduleNotification(title, text) {
+        document.addEventListener('deviceready', function () {
+            $cordovaLocalNotification.schedule({
+                id: curNotificationIdx++,
+                title: title,
+                text: text,
+                data: {
+                    customProperty: 'custom value'
+                }
+            }).then(function (result) {
+                console.log('YES:' + result);
+            });
+        }, false);
+    }
+
+    function registerPermission() {
+        document.addEventListener('deviceready', function () {
+            $cordovaLocalNotification.registerPermission();
+            // $scope.scheduleNotification = function () {
+            //     $cordovaLocalNotification.schedule({
+            //         id: 1,
+            //         title: 'Title here',
+            //         text: 'Text here',
+            //         data: {
+            //             customProperty: 'custom value'
+            //         }
+            //     }).then(function (result) {
+            //         console.log('YES:' + result);
+            //     });
+            // };
+
+            // setTimeout(function () {
+            //     $scope.scheduleNotification();
+            // }, 5000);
+        }, false);
+    }
+
+    console.log('going to try and listen');
+
+    socketio.socket.on('photoUploaded', function (photoData) {
+        var photo = photoData.photo;
+        console.log(photo);
+        scheduleNotification('Photo Notification', 'A new photo was just added to the 72Fest gallery');
+    });
+
+    document.addEventListener('deviceready', function () {
+    }, false);
+
+    return {
+        registerPermission: registerPermission
+    };
+});
+
 angular.module('services.constants', [])
 .factory('constants', function ($http, $q) {
     return {
