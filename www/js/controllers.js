@@ -74,6 +74,11 @@ angular.module('starter.controllers', [])
         }
     });
 
+    //get latest news when app returns from the background
+    document.addEventListener('resume', function () {
+        getNews();
+    });
+
     getNews();
 })
 
