@@ -1,12 +1,15 @@
 {
   "name": "72FestHybridApp",
-  "app_id": "",
+  "app_id": "15bd7b72",
   "gulpStartupTasks": [
     "sass",
     "watch"
   ],
   "watchPatterns": [
     "www/**/*",
-    "!www/lib/**/*"
-  ]
+    "!www/lib/**/*",
+    "scss/**/*"
+  ],
+  "type": "ionic1",
+  "integrations": {}
 }
