@@ -10,18 +10,16 @@ angular.module('services.photos', [])
         $http.jsonp(baseEndpoint + '/photos?callback=JSON_CALLBACK')
             .then(function (response) {
                 var isSuccess = response.data.isSuccess,
-                    baseUrl,
                     photoData,
                     results;
 
                 if (isSuccess) {
-                    baseUrl = response.data.message.metadata.baseUrl;
                     photoData = response.data.message.photos;
                     results = photoData.map(function (val) {
                         return {
                             id: val.id,
-                            src: baseUrl + '/' + val.photoUrl,
-                            thumb: baseUrl + '/' + val.thumbUrl,
+                            src: val.photoUrl,
+                            thumb: val.thumbUrl,
                             timestamp: val.timestamp,
                             isFilmHour: val.isFilmHour || false,
                             filmHour: val.filmHour || ''
