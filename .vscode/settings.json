@@ -1,0 +1,7 @@
+{
+    "search.exclude": {
+        "**/*.min.*": true,
+        "**/platforms/**": true,
+        "**/plugins/**": true
+    }
+}
