@@ -1,13 +1,13 @@
 @font-face {
-  font-family: 'Titillium Web';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Titillium Web'), local('TitilliumWeb-Regular'), url(../fonts/TitilliumWeb-Regular.ttf) format('truetype');
+    font-family: 'Roboto Regular';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Roboto Regular'), local('Roboto-Regular'), url(../fonts/roboto/Roboto-Regular.ttf) format('truetype');
 }
 
 @font-face {
-  font-family: 'Bevan';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Bevan'), local('Bevan'), url(../fonts/Bevan.ttf) format('truetype');
+    font-family: 'Roboto Bold';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Roboto Bold'), local('Roboto-Bold'), url(../fonts/roboto/Roboto-Bold.ttf) format('truetype');
 }
