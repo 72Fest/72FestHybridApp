@@ -18,23 +18,26 @@ $dark:                            #444 !default;
 @import "fonts";
 
 //color constants
-$primary-clr: #bfa284;
+$primary-clr: #263d95;
+$primary-text-clr: #3A3A3A;
 $base-bg-clr: #f0f0f0;
 $header-clr: #fff;
 $sub-header-clr: darken($header-clr, 5%);
 $list-header-clr: #292929;
-$headline-font: 'Bevan', sans-serif;
-//$headline-font: 'Graduate', sans-serif;
+$headline-font: 'Roboto Bold', sans-serif;
 
 //ionic overrides
 $stable: #fff;
-$font-family-base: 'Titillium Web', sans-serif;
+//$font-family-base: 'Titillium Web', sans-serif;
+$font-family-base: 'Roboto Regular', sans-serif;
 $headings-font-family: $headline-font;
 $button-stable-text: $primary-clr;
 $base-background-color: $base-bg-clr;
 $menu-bg: darken($primary-clr, 30%);
 $item-divider-bg: $primary-clr;
 $item-divider-color: $header-clr;
+$menu-icon-container-width: 275px;
+$menu-icon-width: 200px;
 
 //
 // Component styles
@@ -80,16 +83,28 @@ $item-divider-color: $header-clr;
     font-size: 35px !important;
 }
 .menu {
-  background-image: url('../img/menuBG.png');
+    background-color: $primary-text-clr;
 }
 .menu-icon {
-  font-size: 28px;
+    color: $primary-clr;
+    font-size: 28px;
+}
+.menu-background-icon {
+  position: relative;
+  width: $menu-icon-width;
+  padding-left: ($menu-icon-container-width - $menu-icon-width) / 2;
+}
+.menu-background-icon-container {
+  position: relative;
+  margin: auto;
+  padding-top: 30px;
+  width: $menu-icon-container-width;
 }
 .menu-text {
-  font-size: 20px;
+    font-size: 20px;
 }
 .side-menu-item span {
-  color: darken($primary-clr, 40%);
+  color: $primary-text-clr;
 }
 
 // style for icon in menu
@@ -175,7 +190,7 @@ $photo-element-border-clr: darken($primary-clr, 10%);
 
 }
 
-$news-body-txt-clr: #666;
+$news-body-txt-clr: $primary-text-clr;
 $news-header-txt-clr: darken($news-body-txt-clr, 5%);
 $news-header-font-size: 21px;
 .news-item--content {
@@ -193,6 +208,7 @@ $news-header-font-size: 21px;
 
   &.item {
     p {
+      color: $news-body-txt-clr;
       font-size: 18px;
       line-height: 25px;
     }
