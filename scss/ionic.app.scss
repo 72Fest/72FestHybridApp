@@ -253,6 +253,15 @@ $news-header-txt-clr: darken($news-body-txt-clr, 20%);
     border: 1px solid #e3e3e3;
 }
 
+.custom-side-menu {
+    .side-menu-item {
+        height: 50px;
+    }
+    .item-complex .item-content, .item-radio .item-content {
+        padding: 5px 49px 5px 15px;
+    }
+}
+
 //Sponsor styles
 .bar.sponsors-subheader {
   background-color:  rgba($primary-clr, 0.6);
