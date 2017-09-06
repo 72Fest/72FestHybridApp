@@ -11,5 +11,7 @@
     "scss/**/*"
   ],
   "type": "ionic1",
-  "integrations": {}
+  "integrations": {
+    "cordova": {}
+  }
 }
