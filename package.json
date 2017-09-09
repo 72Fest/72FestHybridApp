@@ -1,58 +1,80 @@
 {
-  "name": "72festhybridapp",
-  "version": "1.1.1",
-  "description": "72FestHybridApp: An Ionic project",
-  "dependencies": {
-    "@ionic/cloud": "^0.16.0",
-    "gulp": "^3.5.6",
-    "gulp-concat": "^2.2.0",
-    "gulp-minify-css": "^0.3.0",
-    "gulp-rename": "^1.2.0",
-    "gulp-sass": "^3.1.0"
-  },
-  "devDependencies": {
-    "@ionic/cli-plugin-ionic1": "2.1.1",
-    "bower": "^1.3.3",
-    "eslint": "^3.5.0",
-    "gulp-clean-css": "^3.7.0",
-    "gulp-util": "^3.0.8",
-    "ionic": "3.9.2",
-    "shelljs": "^0.3.0"
-  },
-  "cordovaPlugins": [
-    "cordova-plugin-device",
-    "cordova-plugin-whitelist",
-    "cordova-plugin-splashscreen",
-    "cordova-plugin-statusbar",
-    "ionic-plugin-keyboard",
-    "cordova-plugin-file-transfer",
-    "cordova-plugin-file",
-    "cordova-plugin-compat",
-    "cordova-plugin-camera",
-    {
-      "locator": "https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git",
-      "id": "cordova-plugin-x-socialsharing"
+    "name": "72festhybridapp",
+    "version": "1.1.1",
+    "description": "72FestHybridApp: An Ionic project",
+    "dependencies": {
+        "@ionic/cloud": "^0.16.0",
+        "cordova-android": "~5.2.2",
+        "cordova-ios": "^4.4.0",
+        "cordova-plugin-console": "~1.0.3",
+        "cordova-plugin-device": "~1.1.2",
+        "cordova-plugin-splashscreen": "~3.2.2",
+        "cordova-plugin-statusbar": "~2.1.3",
+        "cordova-plugin-whitelist": "~1.2.2",
+        "gulp": "^3.5.6",
+        "gulp-concat": "^2.2.0",
+        "gulp-minify-css": "^0.3.0",
+        "gulp-rename": "^1.2.0",
+        "gulp-sass": "^3.1.0",
+        "ionic-plugin-keyboard": "~2.2.1"
     },
-    "cordova-plugin-inappbrowser",
-    "cordova-plugin-console",
-    "cordova-plugin-app-preferences"
-  ],
-  "cordovaPlatforms": [
-    "ios",
-    {
-      "platform": "ios",
-      "version": "",
-      "locator": "ios"
+    "devDependencies": {
+        "@ionic/cli-plugin-ionic1": "2.1.1",
+        "bower": "^1.3.3",
+        "eslint": "^3.5.0",
+        "gulp-clean-css": "^3.7.0",
+        "gulp-util": "^3.0.8",
+        "ionic": "3.9.2",
+        "shelljs": "^0.3.0"
     },
-    {
-      "platform": "android",
-      "version": "",
-      "locator": "android"
-    },
-    {
-      "platform": "ios_old",
-      "version": "",
-      "locator": "ios_old"
+    "cordovaPlugins": [
+        "cordova-plugin-device",
+        "cordova-plugin-whitelist",
+        "cordova-plugin-splashscreen",
+        "cordova-plugin-statusbar",
+        "ionic-plugin-keyboard",
+        "cordova-plugin-file-transfer",
+        "cordova-plugin-file",
+        "cordova-plugin-compat",
+        "cordova-plugin-camera",
+        {
+            "locator": "https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git",
+            "id": "cordova-plugin-x-socialsharing"
+        },
+        "cordova-plugin-inappbrowser",
+        "cordova-plugin-console",
+        "cordova-plugin-app-preferences"
+    ],
+    "cordovaPlatforms": [
+        "ios",
+        {
+            "platform": "ios",
+            "version": "",
+            "locator": "ios"
+        },
+        {
+            "platform": "android",
+            "version": "",
+            "locator": "android"
+        },
+        {
+            "platform": "ios_old",
+            "version": "",
+            "locator": "ios_old"
+        }
+    ],
+    "cordova": {
+        "plugins": {
+            "cordova-plugin-console": {},
+            "cordova-plugin-device": {},
+            "cordova-plugin-splashscreen": {},
+            "cordova-plugin-statusbar": {},
+            "cordova-plugin-whitelist": {},
+            "ionic-plugin-keyboard": {}
+        },
+        "platforms": [
+            "android",
+            "ios"
+        ]
     }
-  ]
 }
