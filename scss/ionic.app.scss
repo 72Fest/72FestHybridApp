@@ -83,7 +83,7 @@ $menu-icon-width: 200px;
     font-size: 35px !important;
 }
 .menu {
-    background-color: $primary-text-clr;
+    background-color: darken($primary-clr, 15%) !important;
 }
 .menu-icon {
     color: $primary-clr;
