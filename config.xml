@@ -83,4 +83,5 @@
     <icon src="resources/android/icon/drawable-xhdpi-icon.png" />
     <engine name="android" spec="~5.2.2" />
     <engine name="ios" spec="~4.4.0" />
+    <plugin name="phonegap-plugin-push" spec="^2.0.0" />
 </widget>
