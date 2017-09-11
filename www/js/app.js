@@ -18,10 +18,11 @@ angular.module('starter', [
     'services.votes',
     'services.socketio',
     'services.sponsors',
+    'services.pushNotifications',
     'ff.countdown'
 ])
 
-.run(function ($ionicPlatform) {
+.run(function ($ionicPlatform, $cordovaPushV5, $cordovaPreferences, pushNotifications, constants) {
     $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -34,6 +35,37 @@ angular.module('starter', [
             // org.apache.cordova.statusbar required
             window.StatusBar.styleDefault();
         }
+
+        // define push notification options
+        var pushOptions = {
+            ios: {
+                alert: 'true',
+                badge: 'true',
+                sound: 'true',
+                clearBadge: 'true'
+            },
+            windows: {}
+        };
+
+        // initialize push notifications service
+        $cordovaPushV5.initialize(pushOptions).then(function() {
+            // start listening for new notifications
+            $cordovaPushV5.onNotification();
+            // start listening for errors
+            $cordovaPushV5.onError();
+
+            $cordovaPreferences.fetch(constants.PUSH_TOKEN, constants.PREF_DICT)
+            .success(function(value) {
+                if (!value) {
+                    pushNotifications.registerDeviceToken();
+                }
+                console.log('TOKEN SET: ' + value);
+            })
+            .error(function(error) {
+                console.log('Fetch Error: ' + error);
+            });
+
+        });
     });
 })
 

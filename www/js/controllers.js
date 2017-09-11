@@ -42,7 +42,7 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('HomeCtrl', function ($scope, $rootScope, $interval, news) {
+.controller('HomeCtrl', function ($scope, $rootScope, $interval, $cordovaDialogs, news) {
     var timestampUpdateInterval = 45000;
     $scope.news = [];
 
@@ -72,6 +72,17 @@ angular.module('starter.controllers', [])
         if (toState.name === 'app.home') {
             getNews();
         }
+    });
+
+    // triggered every time notification received
+    $rootScope.$on('$cordovaPushV5:notificationReceived', function(event, data){
+        $cordovaDialogs.alert(data.message, '72Fest Notification');
+    });
+
+    // triggered every time error occurs
+    $rootScope.$on('$cordovaPushV5:errorOcurred', function(event, e){
+        // e.message
+        console.log('got push error', e.message);
     });
 
     //get latest news when app returns from the background
