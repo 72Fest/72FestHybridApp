@@ -313,10 +313,28 @@ angular.module('services.sponsors', [])
     };
 });
 
+angular.module('services.pushNotifications', [])
+.factory('pushNotifications', function ($http, $q, $cordovaPushV5, $cordovaPreferences, constants) {
+    function registerDeviceToken() {
+        // register to get registrationId
+        $cordovaPushV5.register().then(function(tokenId) {
+            // save `tokenId` somewhere;
+            console.log('TOKEN ID:', tokenId);
+            $cordovaPreferences.set(constants.PUSH_TOKEN, tokenId, constants.PREF_DICT);
+        });
+    }
+
+    return {
+        registerDeviceToken: registerDeviceToken
+    };
+});
+
 angular.module('services.constants', [])
 .factory('constants', function ($http, $q) {
     return {
         sponsorsUrl: topLevelUrl + '/sponsors.html',
-        contactUrl: 'http://www.72fest.com/about/contact/ '
+        contactUrl: 'http://www.72fest.com/about/contact/ ',
+        PUSH_TOKEN: 'apnsDeviceToken',
+        PREF_DIC :'72FestDict'
     };
 });
