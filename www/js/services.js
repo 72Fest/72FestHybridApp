@@ -314,14 +314,46 @@ angular.module('services.sponsors', [])
 });
 
 angular.module('services.pushNotifications', [])
-.factory('pushNotifications', function ($http, $q, $cordovaPushV5, $cordovaPreferences, constants) {
+.factory('pushNotifications', function ($http, $q, $cordovaPushV5, $cordovaPreferences, $cordovaDevice, constants) {
+    function submitToken(tokenId, platformType) {
+        var deferred = $q.defer(),
+            postData = {
+                tokenId: tokenId,
+                platform: platformType
+            };
+
+        $http.post(baseEndpoint + '/register', postData)
+            .then(function (response) {
+                var results = response.data.message;
+                if (response.data.isSuccess) {
+                    deferred.resolve(results);
+                } else {
+                    deferred.reject('Error in notification registration');
+                }
+            }, function (err) {
+                deferred.reject(err);
+            });
+
+        return deferred.promise;
+    }
+
     function registerDeviceToken() {
+        var deferred = $q.defer();
+
         // register to get registrationId
         $cordovaPushV5.register().then(function(tokenId) {
-            // save `tokenId` somewhere;
             console.log('TOKEN ID:', tokenId);
-            $cordovaPreferences.set(constants.PUSH_TOKEN, tokenId, constants.PREF_DICT);
+            //$cordovaPreferences.set(constants.PUSH_TOKEN, tokenId, constants.PREF_DICT);
+            //submitToken(tokenId, $cordovaDevice().getPlatform())
+            submitToken(tokenId, 'iOS')
+                .then(function (results) {
+                    deferred.resolve(results);
+                }, function (err) {
+                    deferred.reject(err.message);
+                });
         });
+
+        return deferred.promise;
     }
 
     return {

@@ -57,9 +57,13 @@ angular.module('starter', [
             $cordovaPreferences.fetch(constants.PUSH_TOKEN, constants.PREF_DICT)
             .success(function(value) {
                 if (!value) {
-                    pushNotifications.registerDeviceToken();
+                    pushNotifications.registerDeviceToken()
+                        .then(function (results) {
+                            console.log('Successfully registered device');
+                        }, function (err) {
+                            console.log('Failed to register token:', err);
+                        });
                 }
-                console.log('TOKEN SET: ' + value);
             })
             .error(function(error) {
                 console.log('Fetch Error: ' + error);
