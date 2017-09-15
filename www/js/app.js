@@ -149,6 +149,10 @@ angular.module('starter', [
     $sceDelegateProvider.resourceUrlWhitelist([
         'self',
         'http://api.phoshow.me:3000/**',
+        'https://api.72fest.com/**',
+        'http://api.72fest.com/**',
+        'https://72fest-load-balancer-2123056759.us-east-1.elb.amazonaws.com/**',
+        'http://72fest-load-balancer-2123056759.us-east-1.elb.amazonaws.com/**',
         'https://*.youtube.com/**',
         'http://*.youtube.com/**',
         'http://*.vimeo.com/**'

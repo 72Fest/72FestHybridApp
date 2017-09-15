@@ -1,5 +1,5 @@
 /*global angular, moment, markdown, io */
-var topLevelUrl =  'http://192.168.1.8:3000';
+var topLevelUrl =  'https://api.72fest.com';
 var baseEndpoint = topLevelUrl + '/api';
 
 angular.module('services.photos', [])
