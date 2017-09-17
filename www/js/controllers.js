@@ -232,8 +232,8 @@ angular.module('starter.controllers', [])
     }
 
     function sharePhoto(photoPath) {
-        var message = '#72Fest',
-            subject = 'Photo shared from 72Fest',
+        var message = '#72FilmFest',
+            subject = 'A photo shared from 72 Film Fest',
             file = photoPath;
 
         $cordovaSocialSharing
