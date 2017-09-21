@@ -386,16 +386,23 @@ angular.module('starter.controllers', [])
         });
 })
 
-.controller('CreditsCtrl', function ($scope, sponsors) {
-    //pass in sponsors URL as a trustred resource
-    sponsors.getSponsors()
-        .then(function (results) {
-            $scope.sponsors = results;
-        });
+.controller('CreditsCtrl', function ($scope, $sce, $ionicLoading, constants) {
+    var frame = document.getElementById('contact-frame');
 
-    $scope.openUrl = function (url) {
-        window.open(url, '_system');
-    };
+    frame.addEventListener('load', function (e) {
+        $ionicLoading.hide();
+    });
+    $ionicLoading.show({
+        template: 'Loading contact form...'
+    });
+
+    // hide the loading  spinner after a given amount of time
+    setTimeout(function () {
+        $ionicLoading.hide();
+    }, 7000);
+
+    //pass in sponsors URL as a trustred resource
+    $scope.sponsorsUrl = $sce.trustAsResourceUrl(constants.sponsorsUrl);
 })
 
 .controller('ContactCtrl', function ($scope, $sce, $ionicLoading, constants) {
@@ -408,6 +415,6 @@ angular.module('starter.controllers', [])
         template: 'Loading contact form...'
     });
 
-    //pass in sponsors URL as a trustred resource
+    // pass in contact URL as a trustred resource
     $scope.contactUrl = $sce.trustAsResourceUrl(constants.contactUrl);
 });

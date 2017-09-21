@@ -364,7 +364,7 @@ angular.module('services.pushNotifications', [])
 angular.module('services.constants', [])
 .factory('constants', function ($http, $q) {
     return {
-        sponsorsUrl: topLevelUrl + '/sponsors.html',
+        sponsorsUrl: 'http://www.72fest.com/about/sponsors/',
         contactUrl: 'http://www.72fest.com/about/contact/ ',
         PUSH_TOKEN: 'apnsDeviceToken',
         PREF_DIC :'72FestDict'
