@@ -76,7 +76,6 @@
     </platform>
     <icon src="resources/android/icon/drawable-xhdpi-icon.png" />
     <engine name="android" spec="~5.2.2" />
-    <engine name="ios" spec="^4.4.0" />
     <plugin name="cordova-plugin-app-preferences" spec="^0.99.3" />
     <plugin name="cordova-plugin-camera" spec="^2.4.1">
         <variable name="CAMERA_USAGE_DESCRIPTION" value=" " />
@@ -94,4 +93,5 @@
     <plugin name="ionic-plugin-keyboard" spec="~2.2.1" />
     <plugin name="org.pbernasconi.progressindicator" spec="https://github.com/pbernasconi/cordova-progressIndicator.git" />
     <plugin name="phonegap-plugin-push" spec="^2.0.0" />
+    <engine name="ios" spec="~4.4.0" />
 </widget>
