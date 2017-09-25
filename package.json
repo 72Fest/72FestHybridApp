@@ -4,7 +4,7 @@
     "description": "72FestHybridApp: An Ionic project",
     "dependencies": {
         "@ionic/cloud": "^0.16.0",
-        "cordova-android": "~5.2.2",
+        "cordova-android": "^6.1.2",
         "cordova-ios": "^4.4.0",
         "cordova-plugin-app-preferences": "^0.99.3",
         "cordova-plugin-camera": "^2.4.1",
