@@ -44,6 +44,9 @@ angular.module('starter', [
                 sound: 'true',
                 clearBadge: 'true'
             },
+            android: {
+                senderID: '1044351661666'
+            },
             windows: {}
         };
 
