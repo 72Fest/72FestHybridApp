@@ -4,7 +4,7 @@
     "description": "72FestHybridApp: An Ionic project",
     "dependencies": {
         "@ionic/cloud": "^0.16.0",
-        "cordova-android": "^6.1.2",
+        "cordova-android": "^6.2.3",
         "cordova-ios": "^4.4.0",
         "cordova-plugin-app-preferences": "^0.99.3",
         "cordova-plugin-camera": "^2.4.1",
@@ -55,7 +55,10 @@
         },
         "cordova-plugin-inappbrowser",
         "cordova-plugin-console",
-        "cordova-plugin-app-preferences"
+        "cordova-plugin-app-preferences",
+        {
+            "locator": "phonegap-plugin-push"
+        }
     ],
     "cordovaPlatforms": [
         "ios",
@@ -81,10 +84,8 @@
             "cordova-plugin-splashscreen": {},
             "cordova-plugin-whitelist": {},
             "ionic-plugin-keyboard": {},
-            "phonegap-plugin-push": {},
             "cordova-plugin-device": {},
             "cordova-plugin-statusbar": {},
-            "cordova-plugin-app-preferences": {},
             "cordova-plugin-file-transfer": {},
             "cordova-plugin-camera": {
                 "CAMERA_USAGE_DESCRIPTION": " ",
@@ -93,7 +94,11 @@
             "cordova-plugin-dialogs": {},
             "cordova-plugin-x-socialsharing": {},
             "cordova-plugin-inappbrowser": {},
-            "org.pbernasconi.progressindicator": {}
+            "org.pbernasconi.progressindicator": {},
+            "phonegap-plugin-push": {
+                "SENDER_ID": "1044351661666"
+            },
+            "cordova-plugin-app-preferences": {}
         },
         "platforms": [
             "android",
