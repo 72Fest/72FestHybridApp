@@ -24,3 +24,13 @@ convert ${ICON} -resize 57 ${OUTPUT_PATH}/icon.png
 convert ${ICON} -resize 114 ${OUTPUT_PATH}/icon@2x.png
 
 echo "Finished generating iOS icons!"
+
+echo "Generating android icons ..."
+ANDROID_PATH="../resources/android/icon/"
+convert ${ICON} -resize 72 ${ANDROID_PATH}/drawable-hdpi-icon.png
+convert ${ICON} -resize 36 ${ANDROID_PATH}/drawable-ldpi-icon.png
+convert ${ICON} -resize 48 ${ANDROID_PATH}/drawable-mdpi-icon.png
+convert ${ICON} -resize 96 ${ANDROID_PATH}/drawable-xhdpi-icon.png
+convert ${ICON} -resize 144 ${ANDROID_PATH}/drawable-xxhdpi-icon.png
+convert ${ICON} -resize 192 ${ANDROID_PATH}/drawable-xxxhdpi-icon.png
+echo "Finished generating android icons!"
